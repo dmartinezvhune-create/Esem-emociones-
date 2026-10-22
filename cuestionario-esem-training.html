@@ -1,0 +1,1703 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cuestionario ESEM Training</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Diseño web Closer Search (VOID/GOLD): cabecera fija con menú por áreas, hero con cifras, índice en tarjetas y bloques como secciones de la web */
+:root{
+  --void:#060606; --void-soft:#0F0F0F; --void-card:#131313; --line:#242220;
+  --gold:#C9A84C; --gold-soft:#C9A96E; --gold-dim:#8E763A; --gold-glow:rgba(201,168,76,.08);
+  --ink:#EDE7D8; --ink-dim:#B4AC98; --ink-faint:#807A6C; --ok:#8FC9A0; --bad:#E0907E;
+  --display:"Cormorant Garamond", Georgia, serif; --caps:"Cinzel", Georgia, serif; --body:"DM Sans", system-ui, sans-serif;
+  --radius:6px; --maxw:880px; --hh:76px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hh) + 64px)}
+body{margin:0;background:var(--void);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;padding-top:var(--hh)}
+h1,h2,h3,h4{font-family:var(--display);color:#fff;margin:0;line-height:1.15;font-weight:600;text-wrap:balance;text-align:left}
+a{color:var(--gold)}
+p{margin:0}
+p,.qh,.web,.bintro,.lede{text-align:justify;text-justify:inter-word;text-align-last:left;hyphens:none;-webkit-hyphens:none}
+
+/* Cabecera */
+header.site{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(6,6,6,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.site-inner{max-width:1180px;margin:0 auto;padding:0 28px;height:var(--hh);display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo svg{width:38px;height:38px;flex:0 0 auto}
+.logo-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-name{font-family:var(--caps);font-weight:600;font-size:1.02rem;color:#fff;letter-spacing:.08em}
+.brand-name .search{color:var(--gold)}
+.logo-sub{font-family:var(--display);font-style:italic;font-size:.86rem;color:var(--ink-faint)}
+.site-nav{display:flex;align-items:center;gap:4px}
+.site-nav>a,.dd-btn{color:var(--ink-dim);text-decoration:none;font-family:var(--body);font-size:.9rem;font-weight:500;padding:10px 13px;background:none;border:none;cursor:pointer;border-radius:4px}
+.site-nav>a:hover,.dd-btn:hover,.dd:focus-within .dd-btn{color:var(--gold-soft)}
+.caret{font-size:.7rem;opacity:.7}
+.dd{position:relative}
+.dd-menu{position:absolute;top:100%;left:0;min-width:290px;background:var(--void-soft);border:1px solid var(--line);border-top:2px solid var(--gold);border-radius:0 0 6px 6px;padding:8px 0;display:none;box-shadow:0 18px 40px rgba(0,0,0,.5)}
+.dd:hover .dd-menu,.dd:focus-within .dd-menu{display:block}
+.dd-menu a{display:flex;gap:10px;padding:9px 18px;color:var(--ink-dim);text-decoration:none;font-size:.88rem}
+.dd-menu a span{font-family:var(--caps);color:var(--gold-dim);font-size:.75rem;min-width:20px;padding-top:2px}
+.dd-menu a:hover{color:var(--gold-soft);background:var(--gold-glow)}
+.site-nav>a.nav-cta{background:var(--gold);color:#060606;font-weight:600;margin-left:8px;padding:11px 20px}
+.site-nav>a.nav-cta:hover{background:var(--gold-soft)}
+.menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:4px;width:44px;height:44px;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.menu-toggle span{display:block;width:20px;height:2px;background:var(--gold)}
+
+/* Barra de progreso */
+.bar{position:sticky;top:calc(var(--hh) + env(safe-area-inset-top,0px));z-index:50;background:rgba(15,15,15,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:1180px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;gap:14px}
+.bar-lab{font-family:var(--caps);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);white-space:nowrap}
+.track{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.fill{height:100%;width:0;background:linear-gradient(90deg,var(--gold-dim),var(--gold));transition:width .35s}
+.pct{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--gold);min-width:44px;text-align:right;font-weight:600}
+.saved{font-size:.78rem;color:var(--ink-faint);white-space:nowrap}
+
+/* Hero */
+.web-hero{padding:88px max(28px,calc((100% - 1124px)/2)) 64px;border-bottom:1px solid var(--line);
+  background:radial-gradient(ellipse at 85% 0%,rgba(201,168,76,.13),transparent 55%),radial-gradient(ellipse at 0% 100%,rgba(201,168,76,.05),transparent 50%)}
+.eyebrow{font-family:var(--caps);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.eyebrow svg{width:18px;height:18px}
+.web-hero h1{font-size:3.6rem;line-height:1.08;max-width:900px;letter-spacing:-.01em}
+.web-hero h1 em{font-style:italic;color:var(--gold)}
+.lede{max-width:720px;font-size:1.12rem;color:var(--ink-dim);margin-top:18px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+.btn-primary,.btn-secondary{display:inline-block;text-decoration:none;font-family:var(--body);font-weight:600;font-size:.95rem;padding:15px 26px;border-radius:4px;transition:.15s;text-align:center}
+.btn-primary{background:var(--gold);color:#060606}
+.btn-primary:hover{background:var(--gold-soft)}
+.btn-secondary{border:1px solid var(--gold-dim);color:var(--gold-soft)}
+.btn-secondary:hover{border-color:var(--gold);color:var(--gold)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:46px;background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;max-width:900px}
+.hero-stats>div{background:var(--void-soft);padding:20px 18px}
+.hero-stats .n{display:block;font-family:var(--display);font-weight:700;font-size:2rem;color:var(--gold);line-height:1;font-variant-numeric:tabular-nums}
+.hero-stats .l{display:block;font-size:.78rem;color:var(--ink-dim);margin-top:8px;line-height:1.35}
+.promise{margin-top:26px;padding:20px 24px;background:var(--void-card);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;max-width:900px;font-family:var(--display);font-size:1.25rem;font-weight:600;font-style:italic;color:var(--gold-soft);text-align:left}
+.hero-meta{margin-top:26px;font-size:.8rem;color:var(--ink-faint);display:flex;flex-wrap:wrap;gap:8px}
+.hero-meta strong{color:var(--gold);font-weight:600}
+
+/* Secciones */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:28px}
+.sect{padding-block:52px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:16px}
+.section-tag{font-family:var(--caps);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);font-weight:600}
+.sect h2,.bhead h2,.send h2{font-size:1.85rem}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.step{background:var(--void-card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:6px}
+.step .num{width:34px;height:34px;border-radius:50%;background:#000;border:1px solid var(--gold-dim);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--caps);font-weight:600;font-size:.88rem}
+.step.key .num{background:var(--gold);color:#060606;border-color:var(--gold)}
+.step h4{font-size:1.1rem}
+.step p{font-size:.9rem;color:var(--ink-dim)}
+.seal-divider{display:flex;align-items:center;gap:14px;max-width:var(--maxw);margin:0 auto;padding-inline:28px}
+.seal-divider .line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+.seal-divider .line.right{background:linear-gradient(90deg,transparent,var(--line))}
+.seal-divider svg{width:22px;height:22px}
+.wrap .seal-divider{padding-inline:0;margin-top:44px}
+
+/* Índice */
+nav.index{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.navb{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--void-card);color:var(--ink);text-decoration:none;font-size:.9rem;transition:.15s;text-align:left}
+.navb:hover,.navb:focus-visible{border-color:var(--gold-dim);background:#171612;outline:none}
+.nb{font-family:var(--caps);color:var(--gold);font-size:.78rem}
+.np{font-variant-numeric:tabular-nums;font-size:.75rem;color:var(--ink-faint)}
+.navb.done{border-color:rgba(143,201,160,.35)}
+.navb.done .np{color:var(--ok)}
+
+/* Bloques del cuestionario */
+.block{padding-block:52px 8px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:calc(var(--hh) + 60px)}
+.block+.block{border-top:1px solid var(--line)}
+.bhead{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.bnum{display:none}
+.bhead .section-tag::before{content:attr(data-n) " · "}
+.bintro{color:var(--ink-dim);max-width:70ch}
+.q{background:var(--void-card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0;transition:border-color .15s}
+.q:focus-within{border-color:var(--gold-dim)}
+.q.missing{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset}
+.ql{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;margin:0;font-weight:500;color:var(--ink);text-align:left}
+.qc{font-family:var(--caps);font-size:.74rem;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+.qt{flex:1 1 280px;min-width:0}
+.req{font-family:var(--caps);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);background:var(--gold-glow);border-radius:2px;padding:2px 8px}
+.qh{font-size:.88rem;color:var(--ink-faint)}
+input[type=text],input[type=number],textarea,select{width:100%;background:#0B0B0A;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:11px 13px;font:inherit;font-size:.95rem;text-align:left}
+textarea{resize:vertical;min-height:86px}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:#0B0B0A;cursor:pointer;font-size:.92rem;color:var(--ink-dim);text-align:left}
+.opt input{accent-color:var(--gold);margin-top:4px}
+.opt:hover{border-color:var(--gold-dim)}
+.opt:has(input:checked){border-color:var(--gold);background:var(--gold-glow);color:var(--ink)}
+.opt:has(input:focus-visible){outline:2px solid var(--gold)}
+.og{font-family:var(--caps);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);margin-top:8px;text-align:left}
+.gh{font-family:var(--caps);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:22px 0 2px;font-weight:600;display:flex;align-items:center;gap:12px}
+.gh::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent)}
+
+/* Fichas */
+details.f{padding:0;gap:0;overflow:hidden}
+details.f>summary{list-style:none;cursor:pointer;padding:15px 20px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+details.f>summary::-webkit-details-marker{display:none}
+details.f>summary::after{content:"+";font-family:var(--display);font-size:1.5rem;color:var(--gold);line-height:1;margin-left:10px}
+details.f[open]>summary::after{content:"–"}
+details.f[open]>summary{border-bottom:1px solid var(--line);background:#161512}
+details.f>summary:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+details.f>:not(summary){margin-inline:20px}
+details.f>:last-child{margin-bottom:20px}
+details.f .qt{font-family:var(--display);font-size:1.12rem;font-weight:600}
+.tag{display:none;font-family:var(--caps);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:#060606;background:var(--gold);border-radius:2px;padding:2px 8px}
+details.f.full-f{border-color:var(--gold-dim)}
+details.f.full-f .tag{display:inline-block}
+.fc{margin-left:auto;font-size:.75rem;color:var(--ink-faint);font-variant-numeric:tabular-nums;border:1px solid var(--line);border-radius:2px;padding:1px 8px}
+.fc.full{color:var(--ok);border-color:rgba(143,201,160,.5)}
+.web{margin-top:14px;font-size:.88rem;color:var(--ink-dim);background:var(--gold-glow);border-left:2px solid var(--gold);padding:10px 14px;border-radius:0 4px 4px 0}
+.web strong{color:var(--gold);font-weight:600}
+details.f .og{margin-top:18px;margin-bottom:8px}
+.gf{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.gfi{display:flex;flex-direction:column;gap:5px;font-size:.8rem;color:var(--ink-dim);min-width:0;text-align:left}
+.gfi.wide{grid-column:1/-1}
+.gfi input,.gfi select{padding:9px 11px;font-size:.9rem}
+details.f textarea{min-height:66px}
+
+/* Envío */
+.send{margin-block:56px 20px;border:1px solid var(--gold-dim);border-radius:8px;padding:30px;background:#000;display:flex;flex-direction:column;gap:14px}
+.send h2{color:var(--gold)}
+.send>p{color:var(--ink-dim)}
+.btn{appearance:none;border:1px solid var(--gold);background:var(--gold);color:#060606;font:600 .95rem var(--body);padding:14px 24px;border-radius:4px;cursor:pointer;text-decoration:none;display:inline-block;text-align:center;transition:.15s}
+.btn:hover{background:var(--gold-soft)}
+.btn.ghost{background:transparent;color:var(--gold-soft);border-color:var(--gold-dim)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold)}
+.btn.sm{padding:9px 16px;font-size:.88rem}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+.msg{font-size:.88rem;color:var(--ink-dim)}
+.msg.err{color:var(--bad)}
+.msg.ok{color:var(--ok)}
+.result[hidden]{display:none}
+.result{display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--line);padding-top:18px}
+.result textarea{min-height:200px;font-size:.8rem;font-family:ui-monospace,Menlo,monospace}
+.dest{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.destc{display:flex;flex-direction:column;gap:6px;align-items:flex-start;border:1px solid var(--line);border-radius:6px;padding:16px;background:var(--void-card)}
+.dl{font-family:var(--caps);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.dv{font-family:var(--display);font-size:1.3rem;font-weight:600;user-select:all;font-variant-numeric:tabular-nums}
+.txt summary{cursor:pointer;color:var(--ink-faint);font-size:.88rem}
+.txt[open]{display:flex;flex-direction:column;gap:10px}
+.hp{position:absolute;left:-9999px}
+
+/* Pie */
+.site-footer{margin-top:40px;padding:56px 28px 30px;background:var(--void-soft);border-top:1px solid var(--line)}
+.ft-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}
+.ft-grid h5{font-family:var(--caps);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin:0 0 12px}
+.ft-grid span,.ft-grid a{display:block;color:var(--ink-dim);text-decoration:none;font-size:.88rem;margin-bottom:8px}
+.ft-grid a:hover{color:var(--gold-soft)}
+.ft-brand p{font-size:.88rem;color:var(--ink-faint);margin-top:14px;max-width:320px;text-align:left}
+.ft-sign{font-family:var(--display);font-size:1.25rem;color:#fff;font-weight:600}
+.ft-bottom{max-width:1180px;margin:34px auto 0;padding-top:20px;border-top:1px solid var(--line);font-size:.78rem;color:var(--ink-faint)}
+
+@media (max-width:980px){
+  .menu-toggle{display:flex}
+  header.site{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--void)}
+  .site-nav{display:none;position:fixed;top:calc(var(--hh) + env(safe-area-inset-top,0px));left:0;right:0;height:calc(100vh - var(--hh));background:var(--void);flex-direction:column;align-items:stretch;gap:0;padding:12px 22px 40px;overflow-y:auto;border-top:1px solid var(--line)}
+  body.menu-open .site-nav{display:flex}
+  .site-nav>a,.dd-btn{padding:14px 4px;font-size:1rem;text-align:left;border-bottom:1px solid var(--line);border-radius:0}
+  .dd-btn{width:100%}
+  .dd-menu{display:block;position:static;border:none;box-shadow:none;background:none;padding:0 0 8px 12px;min-width:0}
+  .dd-menu a{padding:10px 4px}
+  .site-nav>a.nav-cta{margin:18px 0 0;text-align:center;border-bottom:none}
+  .web-hero{padding:56px 22px 46px}
+  .site-inner,.bar-in{padding-inline:18px}
+  .wrap,.seal-divider{padding-inline:20px}
+  .web-hero h1{font-size:2.4rem}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .ft-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  .steps{grid-template-columns:1fr}
+  .bar-lab,.saved{display:none}
+  .send{padding:22px}
+}
+@media (max-width:520px){
+  .web-hero h1{font-size:2rem}
+  .logo-sub{display:none}
+  .ft-grid{grid-template-columns:1fr}
+  .btn-primary,.btn-secondary{width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fill{transition:none}}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="site-inner">
+    <a class="logo" href="#top"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><polygon points="50,16 79,32 79,68 50,84 21,68 21,32" stroke="#8E763A" stroke-width="1.2" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="logo-text"><span class="brand-name">CLOSER<span class="search"> SEARCH</span></span><span class="logo-sub">Selección de talento de cierre</span></span></a>
+    <button class="menu-toggle" type="button" aria-label="Abrir el menú" id="mt"><span></span><span></span><span></span></button>
+    <nav class="site-nav" id="sn" aria-label="Secciones"><div class="dd"><button class="dd-btn" type="button">ESEM <span class="caret">▾</span></button><div class="dd-menu"><a href="#b01"><span>01</span>Quién sois y quién decide</a><a href="#b02"><span>02</span>Dónde actuaría el equipo de cierre</a><a href="#b03"><span>03</span>Volumen y resultados</a></div></div><div class="dd"><button class="dd-btn" type="button">Oferta <span class="caret">▾</span></button><div class="dd-menu"><a href="#b04"><span>04</span>Catálogo de formación · ficha de cada programa</a><a href="#b05"><span>05</span>Procesos, empresas y otras líneas</a><a href="#b06"><span>06</span>Política comercial</a><a href="#b07"><span>07</span>Campus y experiencia del alumno</a><a href="#b08"><span>08</span>Titulaciones, certificación y garantías</a></div></div><div class="dd"><button class="dd-btn" type="button">Clientes y venta <span class="caret">▾</span></button><div class="dd-menu"><a href="#b09"><span>09</span>El alumno ideal (particulares)</a><a href="#b10"><span>10</span>Empresas y FUNDAE</a><a href="#b11"><span>11</span>Captación y leads</a><a href="#b12"><span>12</span>Vuestro proceso de venta hoy</a><a href="#b13"><span>13</span>Mensaje, objeciones y límites</a><a href="#b14"><span>14</span>Matrícula, pagos y cobros</a><a href="#b15"><span>15</span>Prueba social y reputación</a></div></div><div class="dd"><button class="dd-btn" type="button">Colaboración <span class="caret">▾</span></button><div class="dd-menu"><a href="#b16"><span>16</span>Cómo trabajaríamos juntos</a><a href="#b17"><span>17</span>Documentos y accesos</a></div></div><a class="nav-cta" href="#send">Generar el PDF</a></nav>
+  </div>
+</header>
+
+<main id="top">
+<div class="web-hero">
+  <div class="eyebrow"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><polygon points="50,16 79,32 79,68 50,84 21,68 21,32" stroke="#8E763A" stroke-width="1.2" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Cuestionario de colaboración · ESEM Training</div>
+  <h1>Conocer ESEM Training a fondo para <em>representar bien lo que ofrecéis.</em></h1>
+  <p class="lede">Para preparar una propuesta que tenga sentido para ESEM Training, necesitamos entender bien cómo funciona vuestra escuela: qué formaciones y procesos ofrecéis, a quién, cómo llegan los contactos, cómo es hoy la admisión, cómo se cobra y qué se puede decir y prometer en una conversación. Con vuestras respuestas preparamos la propuesta de colaboración y todo el material para que el equipo de cierre represente a ESEM Training con vuestro mismo criterio desde el primer día.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" href="#b02">Empezar por el bloque 02</a>
+    <a class="btn-secondary" href="#como">Cómo rellenarlo</a>
+  </div>
+  <div class="hero-stats">
+    <div><span class="n">17</span><span class="l">bloques temáticos</span></div>
+    <div><span class="n">59</span><span class="l">preguntas imprescindibles</span></div>
+    <div><span class="n">16</span><span class="l">programas y servicios, con su ficha</span></div>
+    <div><span class="n">1,5–2 h</span><span class="l">tiempo aproximado, en varias sesiones</span></div>
+  </div>
+  <div class="promise">«Un equipo de cierre solo puede representar bien lo que conoce a fondo. Por eso empezamos preguntando.»</div>
+  <div class="hero-meta"><span><strong>Para</strong> ESEM Training · Escuela de Emociones</span><span>·</span><span><strong>De</strong> Closer Search</span></div>
+</div>
+
+<div class="bar" role="status" aria-live="polite"><div class="bar-in"><span class="bar-lab">Vuestro avance</span><div class="track"><div class="fill" id="fill"></div></div><span class="pct" id="pct">0 %</span><span class="saved" id="saved">Sin respuestas</span></div></div>
+
+<div class="wrap">
+<section class="sect" id="como">
+  <div class="section-tag">Antes de empezar</div>
+  <h2>Cómo rellenarlo</h2>
+  <div class="steps">
+    <div class="step key"><span class="num">1</span><h4>Empezad por el bloque 02</h4><p>Marcad los programas y servicios en los que queréis que trabaje el equipo de cierre. Sus fichas se abrirán completas; del resto solo os pediremos cinco datos básicos.</p></div>
+    <div class="step"><span class="num">2</span><h4>Datos reales, aunque sean aproximados</h4><p>Si no tenéis una cifra exacta, una aproximación nos sirve; si no la tenéis, escribid «no lo sabemos». Las preguntas marcadas como imprescindibles son las que necesitamos para preparar la propuesta.</p></div>
+    <div class="step"><span class="num">3</span><h4>Se guarda solo</h4><p>Las respuestas se guardan en este navegador: podéis dejarlo a medias y volver después desde el mismo dispositivo. Si os lo repartís, cada responsable rellena sus fichas y envía su parte.</p></div>
+    <div class="step"><span class="num">4</span><h4>Al terminar, un PDF</h4><p>Pulsad «Terminar y generar el PDF» y enviádnoslo por WhatsApp o por email. Incluye todas las preguntas y vuestras respuestas.</p></div>
+    <div class="step"><span class="num">5</span><h4>Confidencial</h4><p>Toda la información es confidencial y solo la usaremos para preparar esta colaboración. Si lo preferís, firmamos antes un acuerdo de confidencialidad.</p></div>
+    <div class="step key"><span class="num">6</span><h4>Un informe para vosotros</h4><p>Decidáis lo que decidáis, os enviaremos un informe con lo que hemos visto de vuestra escuela.</p></div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="section-tag">Índice</div>
+  <h2>Bloques del cuestionario</h2>
+  <nav class="index" aria-label="Bloques del cuestionario">
+<a href="#b01" class="navb" data-b="1"><span class="nb">01</span><span class="nt">Quién sois y quién decide</span><span class="np" id="np1">0/9</span></a>
+<a href="#b02" class="navb" data-b="2"><span class="nb">02</span><span class="nt">Dónde actuaría el equipo de cierre</span><span class="np" id="np2">0/4</span></a>
+<a href="#b03" class="navb" data-b="3"><span class="nb">03</span><span class="nt">Volumen y resultados</span><span class="np" id="np3">0/7</span></a>
+<a href="#b04" class="navb" data-b="4"><span class="nb">04</span><span class="nt">Catálogo de formación · ficha de cada programa</span><span class="np" id="np4">0/6</span></a>
+<a href="#b05" class="navb" data-b="5"><span class="nb">05</span><span class="nt">Procesos, empresas y otras líneas</span><span class="np" id="np5">0/12</span></a>
+<a href="#b06" class="navb" data-b="6"><span class="nb">06</span><span class="nt">Política comercial</span><span class="np" id="np6">0/6</span></a>
+<a href="#b07" class="navb" data-b="7"><span class="nb">07</span><span class="nt">Campus y experiencia del alumno</span><span class="np" id="np7">0/5</span></a>
+<a href="#b08" class="navb" data-b="8"><span class="nb">08</span><span class="nt">Titulaciones, certificación y garantías</span><span class="np" id="np8">0/6</span></a>
+<a href="#b09" class="navb" data-b="9"><span class="nb">09</span><span class="nt">El alumno ideal (particulares)</span><span class="np" id="np9">0/10</span></a>
+<a href="#b10" class="navb" data-b="10"><span class="nb">10</span><span class="nt">Empresas y FUNDAE</span><span class="np" id="np10">0/12</span></a>
+<a href="#b11" class="navb" data-b="11"><span class="nb">11</span><span class="nt">Captación y leads</span><span class="np" id="np11">0/14</span></a>
+<a href="#b12" class="navb" data-b="12"><span class="nb">12</span><span class="nt">Vuestro proceso de venta hoy</span><span class="np" id="np12">0/14</span></a>
+<a href="#b13" class="navb" data-b="13"><span class="nb">13</span><span class="nt">Mensaje, objeciones y límites</span><span class="np" id="np13">0/14</span></a>
+<a href="#b14" class="navb" data-b="14"><span class="nb">14</span><span class="nt">Matrícula, pagos y cobros</span><span class="np" id="np14">0/7</span></a>
+<a href="#b15" class="navb" data-b="15"><span class="nb">15</span><span class="nt">Prueba social y reputación</span><span class="np" id="np15">0/6</span></a>
+<a href="#b16" class="navb" data-b="16"><span class="nb">16</span><span class="nt">Cómo trabajaríamos juntos</span><span class="np" id="np16">0/6</span></a>
+<a href="#b17" class="navb" data-b="17"><span class="nb">17</span><span class="nt">Documentos y accesos</span><span class="np" id="np17">0/2</span></a>
+  </nav>
+</section>
+
+<form id="f" name="cuestionario-esem" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+<input type="hidden" name="form-name" value="cuestionario-esem">
+<p class="hp"><label>No rellenar <input name="bot-field" tabindex="-1" autocomplete="off"></label><input type="file" name="pdf-respuestas" tabindex="-1" aria-hidden="true"></p>
+<section class="block" id="b01" data-b="1">
+<div class="bhead"><span class="bnum">01</span><div class="section-tag" data-n="01">Bloque</div><h2>Quién sois y quién decide</h2><p class="bintro">Para saber con quién hablamos, quién firma y cómo está organizada ESEM Training.</p></div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q0101"><span class="qc">01.01</span><span class="qt">Nombre y cargo de quien rellena este cuestionario</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q0101" name="01.01 nombre_cargo_rellena_este_cuestionario" required>
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q0102"><span class="qc">01.02</span><span class="qt">Email y teléfono de contacto</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q0102" name="01.02 email_telefono_contacto" required>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0103"><span class="qc">01.03</span><span class="qt">¿Quién firmaría por parte de ESEM Training un acuerdo de colaboración?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Nombre y cargo.</p>
+<textarea id="q0103" name="01.03 firmaria_parte_esem_training_acuerdo_colaboracion" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0104"><span class="qc">01.04</span><span class="qt">¿Quién más tiene que aprobar esta colaboración por vuestra parte y en qué plazo podéis decidir?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0104" name="01.04 mas_tiene_aprobar_esta_colaboracion_parte" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q0105"><span class="qc">01.05</span><span class="qt">¿Quién será nuestro interlocutor en el día a día?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Nombre, cargo, email y teléfono.</p>
+<input type="text" id="q0105" name="01.05 sera_nuestro_interlocutor_dia_dia" required>
+</div>
+<div class="q" data-req="1" data-type="s">
+<label class="ql" for="q0106"><span class="qc">01.06</span><span class="qt">¿Cuántas horas a la semana puede dedicar esa persona al equipo de cierre durante el primer mes?</span><span class="req">Imprescindible</span></label>
+<select id="q0106" name="01.06 horas_semana_puede_dedicar_esa_persona" required><option value="">Elegid una opción</option><option>Menos de 1 hora</option><option>1–2 horas</option><option>3–4 horas</option><option>Más de 4 horas</option></select>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0107"><span class="qc">01.07</span><span class="qt">¿Cuántas personas trabajan en ESEM Training y en qué áreas?</span></label>
+<p class="qh">Plantilla y colaboradores: dirección académica, equipo docente, mentores y supervisores, admisiones, administración, marketing.</p>
+<textarea id="q0107" name="01.07 personas_trabajan_esem_training_areas" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0108"><span class="qc">01.08</span><span class="qt">¿Factura ESEM Training S.L. todos los servicios o interviene otra entidad?</span></label>
+<textarea id="q0108" name="01.08 factura_esem_training_s_l_todos" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0109"><span class="qc">01.09</span><span class="qt">¿Desde dónde trabajáis? Sede, aula presencial y otras ciudades en las que abrís grupos</span></label>
+<textarea id="q0109" name="01.09 desde_donde_trabajais_sede_aula_presencial" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b02" data-b="2">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">02</span><div class="section-tag" data-n="02">Bloque</div><h2>Dónde actuaría el equipo de cierre</h2><p class="bintro">Empezad por aquí. Marcad los programas y servicios en los que queréis que trabaje el equipo de cierre: sus fichas se abrirán completas en los bloques 04 y 05. Del resto solo os pediremos cinco datos básicos.</p></div>
+<div class="q" data-req="1" data-type="c">
+<p class="ql"><span class="qc">02.01</span><span class="qt">¿En qué programas y servicios queréis que trabaje el equipo de cierre?</span><span class="req">Imprescindible</span></p>
+<p class="og">Formación profesional</p>
+<div class="opts" role="group" data-select="1">
+<label class="opt"><input type="checkbox" id="q0201_1" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Formación en Coaching Integrativo y Desarrollo Humano"><span>Formación en Coaching Integrativo y Desarrollo Humano</span></label>
+<label class="opt"><input type="checkbox" id="q0201_2" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Experto en Desarrollo Humano"><span>Experto en Desarrollo Humano</span></label>
+</div>
+<p class="og">Cursos y especializaciones</p>
+<div class="opts" role="group" data-select="1">
+<label class="opt"><input type="checkbox" id="q0201_3" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Human-Tech · Inteligencia Artificial para Coaches"><span>Human-Tech · Inteligencia Artificial para Coaches</span></label>
+<label class="opt"><input type="checkbox" id="q0201_4" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Coaching Sistémico Esencial"><span>Coaching Sistémico Esencial</span></label>
+<label class="opt"><input type="checkbox" id="q0201_5" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Del OFF al ON · Curso de Gestión Emocional"><span>Del OFF al ON · Curso de Gestión Emocional</span></label>
+<label class="opt"><input type="checkbox" id="q0201_6" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="El juego del Eneagrama · El mapa de tu vida"><span>El juego del Eneagrama · El mapa de tu vida</span></label>
+</div>
+<p class="og">Procesos para personas y coaches</p>
+<div class="opts" role="group" data-select="1">
+<label class="opt"><input type="checkbox" id="q0201_7" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Punto de Partida · Camino Personal (1:1)"><span>Punto de Partida · Camino Personal (1:1)</span></label>
+<label class="opt"><input type="checkbox" id="q0201_8" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Punto de Partida · Camino Compartido (grupo reducido)"><span>Punto de Partida · Camino Compartido (grupo reducido)</span></label>
+<label class="opt"><input type="checkbox" id="q0201_9" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Coaching individual online"><span>Coaching individual online</span></label>
+<label class="opt"><input type="checkbox" id="q0201_10" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Coaching, supervisión y mentoría para coaches"><span>Coaching, supervisión y mentoría para coaches</span></label>
+<label class="opt"><input type="checkbox" id="q0201_11" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Informe Integrativo de Personalidad y Dirección Vital"><span>Informe Integrativo de Personalidad y Dirección Vital</span></label>
+<label class="opt"><input type="checkbox" id="q0201_12" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Viajes conscientes"><span>Viajes conscientes</span></label>
+</div>
+<p class="og">Empresas y organizaciones</p>
+<div class="opts" role="group" data-select="1">
+<label class="opt"><input type="checkbox" id="q0201_13" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Formación in company (bonificable por FUNDAE)"><span>Formación in company (bonificable por FUNDAE)</span></label>
+<label class="opt"><input type="checkbox" id="q0201_14" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Coaching empresarial y Shadow Coaching Ejecutivo"><span>Coaching empresarial y Shadow Coaching Ejecutivo</span></label>
+<label class="opt"><input type="checkbox" id="q0201_15" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="ESEM Executive Thinking"><span>ESEM Executive Thinking</span></label>
+<label class="opt"><input type="checkbox" id="q0201_16" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Conferencias, eventos y FireWalking"><span>Conferencias, eventos y FireWalking</span></label>
+</div>
+<p class="og">Otras líneas de negocio</p>
+<div class="opts" role="group" data-select="1">
+<label class="opt"><input type="checkbox" id="q0201_17" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Otra línea de negocio (1)"><span>Otra línea de negocio (1)</span></label>
+<label class="opt"><input type="checkbox" id="q0201_18" name="02.01 programas_servicios_quereis_trabaje_equipo_cierre[]" value="Otra línea de negocio (2)"><span>Otra línea de negocio (2)</span></label>
+</div>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0202"><span class="qc">02.02</span><span class="qt">Ordenad los que habéis marcado por prioridad y contadnos por qué</span><span class="req">Imprescindible</span></label>
+<textarea id="q0202" name="02.02 ordenad_habeis_marcado_prioridad_contadnos" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0203"><span class="qc">02.03</span><span class="qt">¿Qué esperáis conseguir con un equipo de cierre externo?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0203" name="02.03 esperais_conseguir_equipo_cierre_externo" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0204"><span class="qc">02.04</span><span class="qt">Hoy las videoconferencias de admisión las hacéis vosotros. ¿Qué parte del proceso queréis que asuma el equipo de cierre y cuál preferís conservar?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0204" name="02.04 videoconferencias_admision_haceis_vosotros_parte_proceso" rows="3" required></textarea>
+</div>
+</section>
+<section class="block" id="b03" data-b="3">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">03</span><div class="section-tag" data-n="03">Bloque</div><h2>Volumen y resultados</h2><p class="bintro">Las cifras de hoy. Si no tenéis el dato exacto, una aproximación honesta nos sirve.</p></div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q0301"><span class="qc">03.01</span><span class="qt">¿Qué porcentaje de la facturación viene de la formación, de los procesos individuales y de empresas?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q0301" name="03.01 porcentaje_facturacion_viene_formacion_procesos_individuales" required>
+</div>
+<div class="q" data-req="0" data-type="n">
+<label class="ql" for="q0302"><span class="qc">03.02</span><span class="qt">¿Cuántos alumnos formasteis en 2025?</span></label>
+<input type="number" min="0" inputmode="numeric" id="q0302" name="03.02 alumnos_formasteis_2025">
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q0303"><span class="qc">03.03</span><span class="qt">¿Cuántas plazas cubristeis en las últimas ediciones de la formación principal (de un máximo de 30)?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q0303" name="03.03 plazas_cubristeis_ultimas_ediciones_formacion_principal" required>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0304"><span class="qc">03.04</span><span class="qt">¿Cuántas ediciones abrís al año y cuándo empieza la próxima?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0304" name="03.04 ediciones_abris_ano_cuando_empieza_proxima" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0305"><span class="qc">03.05</span><span class="qt">¿Cuáles son los programas o servicios que más facturan hoy?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0305" name="03.05 son_programas_servicios_mas_facturan" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0306"><span class="qc">03.06</span><span class="qt">¿Qué objetivo de ventas tenéis para los próximos 12 meses y en qué programas o servicios?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0306" name="03.06 objetivo_ventas_teneis_proximos_12_meses" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0307"><span class="qc">03.07</span><span class="qt">¿En qué meses entran más matrículas y en cuáles menos?</span></label>
+<p class="qh">Inicio de edición, plazos de inscripción anticipada, verano, septiembre…</p>
+<textarea id="q0307" name="03.07 meses_entran_mas_matriculas_menos" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b04" data-b="4">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">04</span><div class="section-tag" data-n="04">Bloque</div><h2>Catálogo de formación · ficha de cada programa</h2><p class="bintro">Todas las fichas piden cinco datos básicos. Las de los programas que habéis marcado en el bloque 02 se abren completas: con ellas preparamos un informe de cada programa. Debajo del nombre veréis lo que dice hoy vuestra web, para que lo confirméis o corregáis.</p></div>
+<h3 class="gh">Formación profesional</h3>
+<details class="q f" data-req="0" data-type="f" data-item="Formación en Coaching Integrativo y Desarrollo Humano"><summary class="ql"><span class="qc">04.01</span><span class="qt">Formación en Coaching Integrativo y Desarrollo Humano</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 450 h · 7 meses de formación troncal (un fin de semana al mes) + 12 meses de laboratorios y 50 prácticas · presencial en instalaciones de UDIMA (Madrid) u online en directo por Zoom · 2.800 € el recorrido base, fraccionable hasta 12 meses con seQura · máximo 30 plazas · 22.ª edición desde el 3 de octubre de 2026 · supervisión, certificación GCF y diploma propio UDIMA como opciones con tasas aparte. En portales de formación aparece a 2.997 € y 4.197 €. Confirmadlo o corregidlo.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0401_01" name="04.01 formacion_coaching_integrativo_desarrollo · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0401_02" name="04.01 formacion_coaching_integrativo_desarrollo · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0401_03" name="04.01 formacion_coaching_integrativo_desarrollo · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0401_04" name="04.01 formacion_coaching_integrativo_desarrollo · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0401_05" name="04.01 formacion_coaching_integrativo_desarrollo · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0401_06" name="04.01 formacion_coaching_integrativo_desarrollo · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0401_07" name="04.01 formacion_coaching_integrativo_desarrollo · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0401_08" name="04.01 formacion_coaching_integrativo_desarrollo · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0401_09" name="04.01 formacion_coaching_integrativo_desarrollo · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0401_10" name="04.01 formacion_coaching_integrativo_desarrollo · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0401_11" name="04.01 formacion_coaching_integrativo_desarrollo · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0401_12" name="04.01 formacion_coaching_integrativo_desarrollo · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0401_13" name="04.01 formacion_coaching_integrativo_desarrollo · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0401_14" name="04.01 formacion_coaching_integrativo_desarrollo · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0401_15" name="04.01 formacion_coaching_integrativo_desarrollo · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0401_16" name="04.01 formacion_coaching_integrativo_desarrollo · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0401_17" name="04.01 formacion_coaching_integrativo_desarrollo · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0401_18" name="04.01 formacion_coaching_integrativo_desarrollo · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0401_19" name="04.01 formacion_coaching_integrativo_desarrollo · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0401_20" name="04.01 formacion_coaching_integrativo_desarrollo · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0401_21" name="04.01 formacion_coaching_integrativo_desarrollo · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0401_22" name="04.01 formacion_coaching_integrativo_desarrollo · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0401_23" name="04.01 formacion_coaching_integrativo_desarrollo · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0401_24" name="04.01 formacion_coaching_integrativo_desarrollo · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0401_25" name="04.01 formacion_coaching_integrativo_desarrollo · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0401_26" name="04.01 formacion_coaching_integrativo_desarrollo · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0401_27" name="04.01 formacion_coaching_integrativo_desarrollo · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0401_28" name="04.01 formacion_coaching_integrativo_desarrollo · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0401_29" name="04.01 formacion_coaching_integrativo_desarrollo · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0401_30" name="04.01 formacion_coaching_integrativo_desarrollo · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0401_31" name="04.01 formacion_coaching_integrativo_desarrollo · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Experto en Desarrollo Humano"><summary class="ql"><span class="qc">04.02</span><span class="qt">Experto en Desarrollo Humano</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 250 h · 7 meses, un fin de semana intensivo al mes · presencial en Madrid o por Zoom, siempre en directo · 2.800 € · inicio el 3 de octubre de 2026 · diploma de ESEM y título propio UDIMA opcional (9 ECTS) · posible bonificación FUNDAE. En el menú figura como «Especialista en Desarrollo Humano y Bienestar» y en otra página como recorrido de seis meses. Confirmadlo o corregidlo.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0402_01" name="04.02 experto_desarrollo_humano · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0402_02" name="04.02 experto_desarrollo_humano · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0402_03" name="04.02 experto_desarrollo_humano · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0402_04" name="04.02 experto_desarrollo_humano · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0402_05" name="04.02 experto_desarrollo_humano · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0402_06" name="04.02 experto_desarrollo_humano · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0402_07" name="04.02 experto_desarrollo_humano · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0402_08" name="04.02 experto_desarrollo_humano · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0402_09" name="04.02 experto_desarrollo_humano · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0402_10" name="04.02 experto_desarrollo_humano · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0402_11" name="04.02 experto_desarrollo_humano · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0402_12" name="04.02 experto_desarrollo_humano · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0402_13" name="04.02 experto_desarrollo_humano · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0402_14" name="04.02 experto_desarrollo_humano · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0402_15" name="04.02 experto_desarrollo_humano · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0402_16" name="04.02 experto_desarrollo_humano · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0402_17" name="04.02 experto_desarrollo_humano · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0402_18" name="04.02 experto_desarrollo_humano · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0402_19" name="04.02 experto_desarrollo_humano · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0402_20" name="04.02 experto_desarrollo_humano · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0402_21" name="04.02 experto_desarrollo_humano · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0402_22" name="04.02 experto_desarrollo_humano · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0402_23" name="04.02 experto_desarrollo_humano · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0402_24" name="04.02 experto_desarrollo_humano · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0402_25" name="04.02 experto_desarrollo_humano · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0402_26" name="04.02 experto_desarrollo_humano · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0402_27" name="04.02 experto_desarrollo_humano · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0402_28" name="04.02 experto_desarrollo_humano · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0402_29" name="04.02 experto_desarrollo_humano · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0402_30" name="04.02 experto_desarrollo_humano · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0402_31" name="04.02 experto_desarrollo_humano · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+<h3 class="gh">Cursos y especializaciones</h3>
+<details class="q f" data-req="0" data-type="f" data-item="Human-Tech · Inteligencia Artificial para Coaches"><summary class="ql"><span class="qc">04.03</span><span class="qt">Human-Tech · Inteligencia Artificial para Coaches</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 16 h en dos meses · online en directo con acceso a la grabación · para coaches certificados o en formación, terapeutas y psicólogos · certificado de participación · aval de GCF y UDIMA. No hemos encontrado el precio ni la próxima convocatoria.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0403_01" name="04.03 human_tech_inteligencia_artificial · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0403_02" name="04.03 human_tech_inteligencia_artificial · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0403_03" name="04.03 human_tech_inteligencia_artificial · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0403_04" name="04.03 human_tech_inteligencia_artificial · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0403_05" name="04.03 human_tech_inteligencia_artificial · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0403_06" name="04.03 human_tech_inteligencia_artificial · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0403_07" name="04.03 human_tech_inteligencia_artificial · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0403_08" name="04.03 human_tech_inteligencia_artificial · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0403_09" name="04.03 human_tech_inteligencia_artificial · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0403_10" name="04.03 human_tech_inteligencia_artificial · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0403_11" name="04.03 human_tech_inteligencia_artificial · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0403_12" name="04.03 human_tech_inteligencia_artificial · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0403_13" name="04.03 human_tech_inteligencia_artificial · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0403_14" name="04.03 human_tech_inteligencia_artificial · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0403_15" name="04.03 human_tech_inteligencia_artificial · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0403_16" name="04.03 human_tech_inteligencia_artificial · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0403_17" name="04.03 human_tech_inteligencia_artificial · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0403_18" name="04.03 human_tech_inteligencia_artificial · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0403_19" name="04.03 human_tech_inteligencia_artificial · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0403_20" name="04.03 human_tech_inteligencia_artificial · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0403_21" name="04.03 human_tech_inteligencia_artificial · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0403_22" name="04.03 human_tech_inteligencia_artificial · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0403_23" name="04.03 human_tech_inteligencia_artificial · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0403_24" name="04.03 human_tech_inteligencia_artificial · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0403_25" name="04.03 human_tech_inteligencia_artificial · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0403_26" name="04.03 human_tech_inteligencia_artificial · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0403_27" name="04.03 human_tech_inteligencia_artificial · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0403_28" name="04.03 human_tech_inteligencia_artificial · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0403_29" name="04.03 human_tech_inteligencia_artificial · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0403_30" name="04.03 human_tech_inteligencia_artificial · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0403_31" name="04.03 human_tech_inteligencia_artificial · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Coaching Sistémico Esencial"><summary class="ql"><span class="qc">04.04</span><span class="qt">Coaching Sistémico Esencial</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 20 h · online en directo · certificación internacional con aval de GCF y UDIMA · sin formación previa. No hemos encontrado el precio ni la próxima convocatoria.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0404_01" name="04.04 coaching_sistemico_esencial · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0404_02" name="04.04 coaching_sistemico_esencial · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0404_03" name="04.04 coaching_sistemico_esencial · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0404_04" name="04.04 coaching_sistemico_esencial · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0404_05" name="04.04 coaching_sistemico_esencial · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0404_06" name="04.04 coaching_sistemico_esencial · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0404_07" name="04.04 coaching_sistemico_esencial · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0404_08" name="04.04 coaching_sistemico_esencial · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0404_09" name="04.04 coaching_sistemico_esencial · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0404_10" name="04.04 coaching_sistemico_esencial · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0404_11" name="04.04 coaching_sistemico_esencial · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0404_12" name="04.04 coaching_sistemico_esencial · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0404_13" name="04.04 coaching_sistemico_esencial · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0404_14" name="04.04 coaching_sistemico_esencial · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0404_15" name="04.04 coaching_sistemico_esencial · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0404_16" name="04.04 coaching_sistemico_esencial · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0404_17" name="04.04 coaching_sistemico_esencial · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0404_18" name="04.04 coaching_sistemico_esencial · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0404_19" name="04.04 coaching_sistemico_esencial · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0404_20" name="04.04 coaching_sistemico_esencial · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0404_21" name="04.04 coaching_sistemico_esencial · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0404_22" name="04.04 coaching_sistemico_esencial · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0404_23" name="04.04 coaching_sistemico_esencial · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0404_24" name="04.04 coaching_sistemico_esencial · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0404_25" name="04.04 coaching_sistemico_esencial · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0404_26" name="04.04 coaching_sistemico_esencial · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0404_27" name="04.04 coaching_sistemico_esencial · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0404_28" name="04.04 coaching_sistemico_esencial · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0404_29" name="04.04 coaching_sistemico_esencial · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0404_30" name="04.04 coaching_sistemico_esencial · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0404_31" name="04.04 coaching_sistemico_esencial · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Del OFF al ON · Curso de Gestión Emocional"><summary class="ql"><span class="qc">04.05</span><span class="qt">Del OFF al ON · Curso de Gestión Emocional</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 5 encuentros en 3 meses por Zoom · 850 € (promoción de 595 € hasta el 15/10) o 3 × 199 € · 12–20 plazas · certificado de asistencia · devolución del 100 % si tras el primer encuentro no encaja. Confirmad si las fechas y la promoción siguen vigentes.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0405_01" name="04.05 off_on_curso_gestion · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0405_02" name="04.05 off_on_curso_gestion · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0405_03" name="04.05 off_on_curso_gestion · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0405_04" name="04.05 off_on_curso_gestion · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0405_05" name="04.05 off_on_curso_gestion · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0405_06" name="04.05 off_on_curso_gestion · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0405_07" name="04.05 off_on_curso_gestion · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0405_08" name="04.05 off_on_curso_gestion · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0405_09" name="04.05 off_on_curso_gestion · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0405_10" name="04.05 off_on_curso_gestion · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0405_11" name="04.05 off_on_curso_gestion · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0405_12" name="04.05 off_on_curso_gestion · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0405_13" name="04.05 off_on_curso_gestion · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0405_14" name="04.05 off_on_curso_gestion · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0405_15" name="04.05 off_on_curso_gestion · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0405_16" name="04.05 off_on_curso_gestion · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0405_17" name="04.05 off_on_curso_gestion · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0405_18" name="04.05 off_on_curso_gestion · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0405_19" name="04.05 off_on_curso_gestion · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0405_20" name="04.05 off_on_curso_gestion · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0405_21" name="04.05 off_on_curso_gestion · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0405_22" name="04.05 off_on_curso_gestion · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0405_23" name="04.05 off_on_curso_gestion · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0405_24" name="04.05 off_on_curso_gestion · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0405_25" name="04.05 off_on_curso_gestion · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0405_26" name="04.05 off_on_curso_gestion · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0405_27" name="04.05 off_on_curso_gestion · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0405_28" name="04.05 off_on_curso_gestion · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0405_29" name="04.05 off_on_curso_gestion · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0405_30" name="04.05 off_on_curso_gestion · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0405_31" name="04.05 off_on_curso_gestion · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="El juego del Eneagrama · El mapa de tu vida"><summary class="ql"><span class="qc">04.06</span><span class="qt">El juego del Eneagrama · El mapa de tu vida</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> 170 h · 6 meses · presencial, online en directo u online · título propio UDIMA con ECTS opcional · aval de GCF. No hemos encontrado el precio ni la próxima convocatoria.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi">Precio medio que paga realmente el alumno<input type="text" id="q0406_01" name="04.06 juego_eneagrama_mapa_tu · precio_medio_paga_realmente_alumno"></label>
+<label class="gfi">Ventas al mes (media de los últimos 6 meses)<input type="text" id="q0406_02" name="04.06 juego_eneagrama_mapa_tu · ventas_mes_media_ultimos_6"></label>
+<label class="gfi">Próxima convocatoria y plazas<input type="text" id="q0406_03" name="04.06 juego_eneagrama_mapa_tu · proxima_convocatoria_plazas"></label>
+<label class="gfi">Duración y modalidad<input type="text" id="q0406_04" name="04.06 juego_eneagrama_mapa_tu · duracion_modalidad"></label>
+<label class="gfi">Para quién se vende<select id="q0406_05" name="04.06 juego_eneagrama_mapa_tu · vende"><option value="">Elegid</option><option>Particulares</option><option>Empresas</option><option>Ambos</option><option>Sector público</option><option>Ya no se vende</option></select></label>
+</div><div class="deep" hidden>
+<p class="og">El programa</p><div class="gf">
+<label class="gfi wide">Qué consigue el alumno al terminar<textarea id="q0406_06" name="04.06 juego_eneagrama_mapa_tu · consigue_alumno_terminar" rows="2"></textarea></label>
+<label class="gfi wide">A quién va dirigido<textarea id="q0406_07" name="04.06 juego_eneagrama_mapa_tu · va_dirigido" rows="2"></textarea></label>
+<label class="gfi wide">Requisitos de acceso y nivel previo<textarea id="q0406_08" name="04.06 juego_eneagrama_mapa_tu · requisitos_acceso_nivel_previo" rows="2"></textarea></label>
+<label class="gfi wide">Módulos o temario resumido<textarea id="q0406_09" name="04.06 juego_eneagrama_mapa_tu · modulos_temario_resumido" rows="2"></textarea></label>
+<label class="gfi">Horario de las sesiones en directo<input type="text" id="q0406_10" name="04.06 juego_eneagrama_mapa_tu · horario_sesiones_directo"></label>
+<label class="gfi wide">Quién lo imparte (docentes, mentores y supervisores)<textarea id="q0406_11" name="04.06 juego_eneagrama_mapa_tu · imparte_docentes_mentores_supervisores" rows="2"></textarea></label>
+<label class="gfi wide">Tutorías, mentorías y soporte incluidos<textarea id="q0406_12" name="04.06 juego_eneagrama_mapa_tu · tutorias_mentorias_soporte_incluidos" rows="2"></textarea></label>
+<label class="gfi wide">Prácticas, laboratorios o proyecto final<textarea id="q0406_13" name="04.06 juego_eneagrama_mapa_tu · practicas_laboratorios_proyecto_final" rows="2"></textarea></label>
+<label class="gfi wide">Titulación exacta, entidad que la expide y carácter (diploma propio, certificación, título propio universitario)<textarea id="q0406_14" name="04.06 juego_eneagrama_mapa_tu · titulacion_exacta_entidad_expide_caracter" rows="2"></textarea></label>
+<label class="gfi">Acceso al campus y a las grabaciones<input type="text" id="q0406_15" name="04.06 juego_eneagrama_mapa_tu · acceso_campus_grabaciones"></label>
+</div>
+<p class="og">Precio y resultados</p><div class="gf">
+<label class="gfi">Precio de lista<input type="text" id="q0406_16" name="04.06 juego_eneagrama_mapa_tu · precio_lista"></label>
+<label class="gfi">Descuento máximo permitido<input type="text" id="q0406_17" name="04.06 juego_eneagrama_mapa_tu · descuento_maximo_permitido"></label>
+<label class="gfi wide">Formas de pago y plazos<textarea id="q0406_18" name="04.06 juego_eneagrama_mapa_tu · formas_pago_plazos" rows="2"></textarea></label>
+<label class="gfi">Financiación disponible (entidad y plazos)<input type="text" id="q0406_19" name="04.06 juego_eneagrama_mapa_tu · financiacion_disponible_entidad_plazos"></label>
+<label class="gfi">Importe bonificable por FUNDAE por alumno<input type="text" id="q0406_20" name="04.06 juego_eneagrama_mapa_tu · importe_bonificable_fundae_alumno"></label>
+<label class="gfi wide">Convocatorias de los próximos 12 meses<textarea id="q0406_21" name="04.06 juego_eneagrama_mapa_tu · convocatorias_proximos_12_meses" rows="2"></textarea></label>
+<label class="gfi">Alumnos totales desde que se lanzó<input type="text" id="q0406_22" name="04.06 juego_eneagrama_mapa_tu · alumnos_totales_desde_lanzo"></label>
+<label class="gfi">Tasa de finalización y satisfacción<input type="text" id="q0406_23" name="04.06 juego_eneagrama_mapa_tu · tasa_finalizacion_satisfaccion"></label>
+</div>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">Perfil típico de quien lo compra (un ejemplo real, sin datos personales)<textarea id="q0406_24" name="04.06 juego_eneagrama_mapa_tu · perfil_tipico_compra_ejemplo_real" rows="2"></textarea></label>
+<label class="gfi wide">Por qué lo compran<textarea id="q0406_25" name="04.06 juego_eneagrama_mapa_tu · compran" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones propias de este programa y cómo las respondéis<textarea id="q0406_26" name="04.06 juego_eneagrama_mapa_tu · objeciones_propias_este_programa_respondeis" rows="2"></textarea></label>
+<label class="gfi wide">Diferencia frente a programas parecidos de otras escuelas<textarea id="q0406_27" name="04.06 juego_eneagrama_mapa_tu · diferencia_frente_programas_parecidos_otras" rows="2"></textarea></label>
+<label class="gfi wide">Resultados y testimonios citables (con permiso)<textarea id="q0406_28" name="04.06 juego_eneagrama_mapa_tu · resultados_testimonios_citables_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Qué no se debe prometer de este programa<textarea id="q0406_29" name="04.06 juego_eneagrama_mapa_tu · no_debe_prometer_este_programa" rows="2"></textarea></label>
+<label class="gfi wide">Programa siguiente que se recomienda al terminar<textarea id="q0406_30" name="04.06 juego_eneagrama_mapa_tu · programa_siguiente_recomienda_terminar" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles (dosier PDF, vídeo, landing, enlace de pago)<textarea id="q0406_31" name="04.06 juego_eneagrama_mapa_tu · materiales_disponibles_dosier_pdf_video" rows="2"></textarea></label>
+</div>
+</div></details>
+</section>
+<section class="block" id="b05" data-b="5">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">05</span><div class="section-tag" data-n="05">Bloque</div><h2>Procesos, empresas y otras líneas</h2><p class="bintro">Lo que ESEM Training hace además de la formación. Si habéis marcado alguno de estos servicios en el bloque 02, su ficha se abre completa. Si tenéis alguna línea más, usad las fichas de «Otra línea».</p></div>
+<h3 class="gh">Procesos para personas y coaches</h3>
+<details class="q f" data-req="0" data-type="f" data-item="Punto de Partida · Camino Personal (1:1)"><summary class="ql"><span class="qc">05.01</span><span class="qt">Punto de Partida · Camino Personal (1:1)</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Proceso individual guiado por Marien Fernández · online y en directo · con valoración previa · en la portada figura como 10 sesiones de 75 minutos. No hemos encontrado el precio.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0501_01" name="05.01 punto_partida_camino_personal · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0501_02" name="05.01 punto_partida_camino_personal · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0501_03" name="05.01 punto_partida_camino_personal · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0501_04" name="05.01 punto_partida_camino_personal · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0501_05" name="05.01 punto_partida_camino_personal · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0501_06" name="05.01 punto_partida_camino_personal · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0501_07" name="05.01 punto_partida_camino_personal · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0501_08" name="05.01 punto_partida_camino_personal · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0501_09" name="05.01 punto_partida_camino_personal · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0501_10" name="05.01 punto_partida_camino_personal · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0501_11" name="05.01 punto_partida_camino_personal · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0501_12" name="05.01 punto_partida_camino_personal · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Punto de Partida · Camino Compartido (grupo reducido)"><summary class="ql"><span class="qc">05.02</span><span class="qt">Punto de Partida · Camino Compartido (grupo reducido)</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Grupo de hasta 5 personas · 120 minutos quincenales · online · con valoración previa. No hemos encontrado el precio.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0502_01" name="05.02 punto_partida_camino_compartido · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0502_02" name="05.02 punto_partida_camino_compartido · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0502_03" name="05.02 punto_partida_camino_compartido · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0502_04" name="05.02 punto_partida_camino_compartido · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0502_05" name="05.02 punto_partida_camino_compartido · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0502_06" name="05.02 punto_partida_camino_compartido · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0502_07" name="05.02 punto_partida_camino_compartido · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0502_08" name="05.02 punto_partida_camino_compartido · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0502_09" name="05.02 punto_partida_camino_compartido · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0502_10" name="05.02 punto_partida_camino_compartido · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0502_11" name="05.02 punto_partida_camino_compartido · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0502_12" name="05.02 punto_partida_camino_compartido · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Coaching individual online"><summary class="ql"><span class="qc">05.03</span><span class="qt">Coaching individual online</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Método 123 (3 meses), Abre tus Alas (16 semanas en grupo) y Método 30 (30 días) · sesión de cortesía gratuita · garantía de devolución si no hay resultados. La página es de 2024: confirmad si sigue activa.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0503_01" name="05.03 coaching_individual_online · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0503_02" name="05.03 coaching_individual_online · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0503_03" name="05.03 coaching_individual_online · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0503_04" name="05.03 coaching_individual_online · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0503_05" name="05.03 coaching_individual_online · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0503_06" name="05.03 coaching_individual_online · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0503_07" name="05.03 coaching_individual_online · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0503_08" name="05.03 coaching_individual_online · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0503_09" name="05.03 coaching_individual_online · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0503_10" name="05.03 coaching_individual_online · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0503_11" name="05.03 coaching_individual_online · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0503_12" name="05.03 coaching_individual_online · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Coaching, supervisión y mentoría para coaches"><summary class="ql"><span class="qc">05.04</span><span class="qt">Coaching, supervisión y mentoría para coaches</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Coaching para el propio coach, supervisión de sesiones y mentoría para emprender · individual o en grupo. No hemos encontrado precios.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0504_01" name="05.04 coaching_supervision_mentoria_coaches · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0504_02" name="05.04 coaching_supervision_mentoria_coaches · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0504_03" name="05.04 coaching_supervision_mentoria_coaches · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0504_04" name="05.04 coaching_supervision_mentoria_coaches · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0504_05" name="05.04 coaching_supervision_mentoria_coaches · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0504_06" name="05.04 coaching_supervision_mentoria_coaches · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0504_07" name="05.04 coaching_supervision_mentoria_coaches · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0504_08" name="05.04 coaching_supervision_mentoria_coaches · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0504_09" name="05.04 coaching_supervision_mentoria_coaches · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0504_10" name="05.04 coaching_supervision_mentoria_coaches · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0504_11" name="05.04 coaching_supervision_mentoria_coaches · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0504_12" name="05.04 coaching_supervision_mentoria_coaches · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Informe Integrativo de Personalidad y Dirección Vital"><summary class="ql"><span class="qc">05.05</span><span class="qt">Informe Integrativo de Personalidad y Dirección Vital</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Test de 6–8 minutos e informe en PDF en 3–5 días laborables · 120 € IVA incluido (promoción) · incluido en las inscripciones anticipadas del Experto.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0505_01" name="05.05 informe_integrativo_personalidad_direccion · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0505_02" name="05.05 informe_integrativo_personalidad_direccion · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0505_03" name="05.05 informe_integrativo_personalidad_direccion · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0505_04" name="05.05 informe_integrativo_personalidad_direccion · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0505_05" name="05.05 informe_integrativo_personalidad_direccion · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0505_06" name="05.05 informe_integrativo_personalidad_direccion · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0505_07" name="05.05 informe_integrativo_personalidad_direccion · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0505_08" name="05.05 informe_integrativo_personalidad_direccion · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0505_09" name="05.05 informe_integrativo_personalidad_direccion · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0505_10" name="05.05 informe_integrativo_personalidad_direccion · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0505_11" name="05.05 informe_integrativo_personalidad_direccion · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0505_12" name="05.05 informe_integrativo_personalidad_direccion · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Viajes conscientes"><summary class="ql"><span class="qc">05.06</span><span class="qt">Viajes conscientes</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Viajes de una semana (por ejemplo, al Sáhara). No hemos encontrado fechas ni precio.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0506_01" name="05.06 viajes_conscientes · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0506_02" name="05.06 viajes_conscientes · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0506_03" name="05.06 viajes_conscientes · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0506_04" name="05.06 viajes_conscientes · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0506_05" name="05.06 viajes_conscientes · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0506_06" name="05.06 viajes_conscientes · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0506_07" name="05.06 viajes_conscientes · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0506_08" name="05.06 viajes_conscientes · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0506_09" name="05.06 viajes_conscientes · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0506_10" name="05.06 viajes_conscientes · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0506_11" name="05.06 viajes_conscientes · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0506_12" name="05.06 viajes_conscientes · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<h3 class="gh">Empresas y organizaciones</h3>
+<details class="q f" data-req="0" data-type="f" data-item="Formación in company (bonificable por FUNDAE)"><summary class="ql"><span class="qc">05.07</span><span class="qt">Formación in company (bonificable por FUNDAE)</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Liderazgo, comunicación, inteligencia emocional, conflictos, mindfulness, eneagrama y valores · presencial, online o híbrida · bonificable por FUNDAE.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0507_01" name="05.07 formacion_in_company_bonificable · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0507_02" name="05.07 formacion_in_company_bonificable · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0507_03" name="05.07 formacion_in_company_bonificable · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0507_04" name="05.07 formacion_in_company_bonificable · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0507_05" name="05.07 formacion_in_company_bonificable · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0507_06" name="05.07 formacion_in_company_bonificable · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0507_07" name="05.07 formacion_in_company_bonificable · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0507_08" name="05.07 formacion_in_company_bonificable · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0507_09" name="05.07 formacion_in_company_bonificable · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0507_10" name="05.07 formacion_in_company_bonificable · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0507_11" name="05.07 formacion_in_company_bonificable · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0507_12" name="05.07 formacion_in_company_bonificable · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Coaching empresarial y Shadow Coaching Ejecutivo"><summary class="ql"><span class="qc">05.08</span><span class="qt">Coaching empresarial y Shadow Coaching Ejecutivo</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Executive coaching individual, coaching de equipos y departamentos, y shadow coaching en situaciones reales.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0508_01" name="05.08 coaching_empresarial_shadow_coaching · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0508_02" name="05.08 coaching_empresarial_shadow_coaching · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0508_03" name="05.08 coaching_empresarial_shadow_coaching · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0508_04" name="05.08 coaching_empresarial_shadow_coaching · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0508_05" name="05.08 coaching_empresarial_shadow_coaching · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0508_06" name="05.08 coaching_empresarial_shadow_coaching · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0508_07" name="05.08 coaching_empresarial_shadow_coaching · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0508_08" name="05.08 coaching_empresarial_shadow_coaching · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0508_09" name="05.08 coaching_empresarial_shadow_coaching · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0508_10" name="05.08 coaching_empresarial_shadow_coaching · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0508_11" name="05.08 coaching_empresarial_shadow_coaching · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0508_12" name="05.08 coaching_empresarial_shadow_coaching · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="ESEM Executive Thinking"><summary class="ql"><span class="qc">05.09</span><span class="qt">ESEM Executive Thinking</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Espacio externo para CEO, propietarios y Dirección General que sostienen decisiones no delegables · privacidad reforzada.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0509_01" name="05.09 esem_executive_thinking · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0509_02" name="05.09 esem_executive_thinking · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0509_03" name="05.09 esem_executive_thinking · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0509_04" name="05.09 esem_executive_thinking · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0509_05" name="05.09 esem_executive_thinking · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0509_06" name="05.09 esem_executive_thinking · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0509_07" name="05.09 esem_executive_thinking · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0509_08" name="05.09 esem_executive_thinking · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0509_09" name="05.09 esem_executive_thinking · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0509_10" name="05.09 esem_executive_thinking · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0509_11" name="05.09 esem_executive_thinking · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0509_12" name="05.09 esem_executive_thinking · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Conferencias, eventos y FireWalking"><summary class="ql"><span class="qc">05.10</span><span class="qt">Conferencias, eventos y FireWalking</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="web"><strong>Según vuestra web:</strong> Conferencias de Marien Fernández, jornadas, congresos y firewalking · referencias públicas: Naturgy, Adecco, Avanza y Fundación Edelvives.</p>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0510_01" name="05.10 conferencias_eventos_firewalking · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0510_02" name="05.10 conferencias_eventos_firewalking · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0510_03" name="05.10 conferencias_eventos_firewalking · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0510_04" name="05.10 conferencias_eventos_firewalking · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0510_05" name="05.10 conferencias_eventos_firewalking · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0510_06" name="05.10 conferencias_eventos_firewalking · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0510_07" name="05.10 conferencias_eventos_firewalking · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0510_08" name="05.10 conferencias_eventos_firewalking · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0510_09" name="05.10 conferencias_eventos_firewalking · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0510_10" name="05.10 conferencias_eventos_firewalking · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0510_11" name="05.10 conferencias_eventos_firewalking · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0510_12" name="05.10 conferencias_eventos_firewalking · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<h3 class="gh">Otras líneas de negocio</h3>
+<details class="q f" data-req="0" data-type="f" data-item="Otra línea de negocio (1)"><summary class="ql"><span class="qc">05.11</span><span class="qt">Otra línea de negocio (1)</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Nombre de la línea<input type="text" id="q0511_00" name="05.11 otra_linea_negocio_1 · nombre"></label>
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0511_01" name="05.11 otra_linea_negocio_1 · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0511_02" name="05.11 otra_linea_negocio_1 · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0511_03" name="05.11 otra_linea_negocio_1 · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0511_04" name="05.11 otra_linea_negocio_1 · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0511_05" name="05.11 otra_linea_negocio_1 · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0511_06" name="05.11 otra_linea_negocio_1 · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0511_07" name="05.11 otra_linea_negocio_1 · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0511_08" name="05.11 otra_linea_negocio_1 · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0511_09" name="05.11 otra_linea_negocio_1 · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0511_10" name="05.11 otra_linea_negocio_1 · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0511_11" name="05.11 otra_linea_negocio_1 · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0511_12" name="05.11 otra_linea_negocio_1 · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+<details class="q f" data-req="0" data-type="f" data-item="Otra línea de negocio (2)"><summary class="ql"><span class="qc">05.12</span><span class="qt">Otra línea de negocio (2)</span><span class="tag">Completa</span><span class="fc">0/0</span></summary>
+<p class="og">Datos básicos</p><div class="gf">
+<label class="gfi wide">Nombre de la línea<input type="text" id="q0512_00" name="05.12 otra_linea_negocio_2 · nombre"></label>
+<label class="gfi wide">Qué es y qué recibe el cliente<textarea id="q0512_01" name="05.12 otra_linea_negocio_2 · recibe_cliente" rows="2"></textarea></label>
+<label class="gfi">Duración y formato<input type="text" id="q0512_02" name="05.12 otra_linea_negocio_2 · duracion_formato"></label>
+<label class="gfi">Precio o modelo de ingresos<input type="text" id="q0512_03" name="05.12 otra_linea_negocio_2 · precio_modelo_ingresos"></label>
+<label class="gfi">Clientes o contrataciones al año<input type="text" id="q0512_04" name="05.12 otra_linea_negocio_2 · clientes_contrataciones_ano"></label>
+<label class="gfi">Ingresos aproximados al año<input type="text" id="q0512_05" name="05.12 otra_linea_negocio_2 · ingresos_aproximados_ano"></label>
+</div><div class="deep" hidden>
+<p class="og">Cómo se vende</p><div class="gf">
+<label class="gfi wide">A quién se dirige y qué requisitos tiene que cumplir el cliente<textarea id="q0512_06" name="05.12 otra_linea_negocio_2 · dirige_requisitos_tiene_cumplir_cliente" rows="2"></textarea></label>
+<label class="gfi wide">Cómo se vende y se contrata hoy (valoración previa, propuesta, contrato, licitación…)<textarea id="q0512_07" name="05.12 otra_linea_negocio_2 · vende_contrata_valoracion_previa_propuesta" rows="2"></textarea></label>
+<label class="gfi wide">Quién decide la compra y cuánto tarda la decisión<textarea id="q0512_08" name="05.12 otra_linea_negocio_2 · decide_compra_tarda_decision" rows="2"></textarea></label>
+<label class="gfi wide">Clientes o casos que podemos citar (con permiso)<textarea id="q0512_09" name="05.12 otra_linea_negocio_2 · clientes_casos_podemos_citar_permiso" rows="2"></textarea></label>
+<label class="gfi wide">Objeciones habituales<textarea id="q0512_10" name="05.12 otra_linea_negocio_2 · objeciones_habituales" rows="2"></textarea></label>
+<label class="gfi wide">¿Lleva después a la formación o a otros servicios? ¿Cuántos casos?<textarea id="q0512_11" name="05.12 otra_linea_negocio_2 · lleva_despues_formacion_otros_servicios" rows="2"></textarea></label>
+<label class="gfi wide">Materiales disponibles<textarea id="q0512_12" name="05.12 otra_linea_negocio_2 · materiales_disponibles" rows="2"></textarea></label>
+</div>
+</div></details>
+</section>
+<section class="block" id="b06" data-b="6">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">06</span><div class="section-tag" data-n="06">Bloque</div><h2>Política comercial</h2><p class="bintro">Las reglas generales que se aplican a todo el catálogo. El detalle de cada programa va en su ficha.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0601"><span class="qc">06.01</span><span class="qt">¿Quién autoriza los descuentos y con qué criterio?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0601" name="06.01 autoriza_descuentos_criterio" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0602"><span class="qc">06.02</span><span class="qt">¿Tenéis becas, inscripción anticipada o promociones activas? ¿Con qué condiciones?</span></label>
+<p class="qh">En un portal de formación hemos visto una beca de 500 €, y en vuestra web el Informe Integrativo incluido con la inscripción anticipada.</p>
+<textarea id="q0602" name="06.02 teneis_becas_inscripcion_anticipada_promociones_activas" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0603"><span class="qc">06.03</span><span class="qt">¿Tenéis rutas o combinaciones entre programas? ¿Con qué precio?</span></label>
+<p class="qh">Por ejemplo: del Informe o de Punto de Partida a la formación, o del Experto en Desarrollo Humano a la certificación sin repetir lo cursado.</p>
+<textarea id="q0603" name="06.03 teneis_rutas_combinaciones_entre_programas_precio" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0604"><span class="qc">06.04</span><span class="qt">¿Qué extras de pago existen y qué importe tiene cada uno?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Supervisión de prácticas, tasas de la certificación GCF, diploma propio de UDIMA, nueva revisión de la evaluación…</p>
+<textarea id="q0604" name="06.04 extras_pago_existen_importe_tiene_cada" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0605"><span class="qc">06.05</span><span class="qt">¿Tenéis previsto cambiar precios o catálogo en los próximos 6 meses?</span></label>
+<textarea id="q0605" name="06.05 teneis_previsto_cambiar_precios_catalogo_proximos" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0606"><span class="qc">06.06</span><span class="qt">¿Tenéis alumnos fuera de España, por ejemplo en Latinoamérica? ¿Con qué precios y moneda?</span></label>
+<textarea id="q0606" name="06.06 teneis_alumnos_fuera_espana_ejemplo_latinoamerica" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b07" data-b="7">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">07</span><div class="section-tag" data-n="07">Bloque</div><h2>Campus y experiencia del alumno</h2><p class="bintro">Lo que comparten todos los programas: dónde se estudia y qué acompañamiento tiene el alumno.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0701"><span class="qc">07.01</span><span class="qt">¿Cómo funciona el campus (esemtraining.com) y qué incluye?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Mis cursos, aula en directo, apuntes, calendario, grabaciones de otras ediciones…</p>
+<textarea id="q0701" name="07.01 funciona_campus_esemtraining_com_incluye" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0702"><span class="qc">07.02</span><span class="qt">¿Qué soporte tiene el alumno entre un fin de semana y el siguiente?</span></label>
+<p class="qh">Tutorías, laboratorios, WhatsApp, email, horarios de respuesta.</p>
+<textarea id="q0702" name="07.02 soporte_tiene_alumno_entre_fin_semana" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0703"><span class="qc">07.03</span><span class="qt">¿Hay comunidad de alumnos y antiguos alumnos? ¿Cómo funciona?</span></label>
+<textarea id="q0703" name="07.03 hay_comunidad_alumnos_antiguos_alumnos_funciona" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0704"><span class="qc">07.04</span><span class="qt">¿Qué pasa si un alumno falta a un fin de semana o no puede seguir el ritmo? ¿Puede pasar a otra edición?</span></label>
+<textarea id="q0704" name="07.04 pasa_si_alumno_falta_fin_semana" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0705"><span class="qc">07.05</span><span class="qt">¿Cómo y cuándo recibe el alumno sus diplomas y su certificación?</span></label>
+<textarea id="q0705" name="07.05 cuando_recibe_alumno_diplomas_certificacion" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b08" data-b="8">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">08</span><div class="section-tag" data-n="08">Bloque</div><h2>Titulaciones, certificación y garantías</h2><p class="bintro">Necesitamos saber exactamente qué se puede afirmar en una llamada y con qué documento lo respaldamos.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0801"><span class="qc">08.01</span><span class="qt">¿Cómo debemos presentar la certificación de la Global Coaching Federation y la membresía de por vida? ¿Qué documento lo respalda?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0801" name="08.01 debemos_presentar_certificacion_global_coaching_federation" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0802"><span class="qc">08.02</span><span class="qt">¿Cómo debemos presentar el diploma propio de UDIMA (créditos, coste y condiciones) para que nadie lo confunda con un título oficial?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0802" name="08.02 debemos_presentar_diploma_propio_udima_creditos" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0803"><span class="qc">08.03</span><span class="qt">Cuando alguien pregunta «¿está homologado?» o por la ICF, ¿cómo queréis que respondamos?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0803" name="08.03 cuando_alguien_pregunta_esta_homologado_icf" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0804"><span class="qc">08.04</span><span class="qt">¿Qué datos tenéis de alumnos que ejercen como coach después de certificarse?</span></label>
+<p class="qh">Cuántos, a qué se dedican y si podemos citarlos.</p>
+<textarea id="q0804" name="08.04 datos_teneis_alumnos_ejercen_coach_despues" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0805"><span class="qc">08.05</span><span class="qt">¿Qué garantía, política de devolución o derecho de desistimiento tiene el alumno?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0805" name="08.05 garantia_politica_devolucion_derecho_desistimiento_tiene" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q0806"><span class="qc">08.06</span><span class="qt">¿Qué porcentaje aproximado de alumnos se da de baja o pide devolución?</span></label>
+<input type="text" id="q0806" name="08.06 porcentaje_aproximado_alumnos_da_baja_pide">
+</div>
+</section>
+<section class="block" id="b09" data-b="9">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">09</span><div class="section-tag" data-n="09">Bloque</div><h2>El alumno ideal (particulares)</h2><p class="bintro">Quién se matricula, con qué palabras os cuenta su situación y por qué se matricula o no.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0901"><span class="qc">09.01</span><span class="qt">¿Qué proporción llega por desarrollo personal y cuál para ejercer como coach? ¿Cambia la conversación en cada caso?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0901" name="09.01 proporcion_llega_desarrollo_personal_ejercer_coach" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0902"><span class="qc">09.02</span><span class="qt">¿Quién se matricula hoy? Edad, profesión, situación laboral, ubicación y modalidad (presencial u online)</span><span class="req">Imprescindible</span></label>
+<textarea id="q0902" name="09.02 matricula_edad_profesion_situacion_laboral_ubicacion" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0903"><span class="qc">09.03</span><span class="qt">¿Cuáles son los motivos principales por los que se matriculan?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Ejercer como coach, aplicarlo en su profesión, un momento vital, recomendación de un antiguo alumno…</p>
+<textarea id="q0903" name="09.03 son_motivos_principales_matriculan" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0904"><span class="qc">09.04</span><span class="qt">Frases literales que os dicen los interesados cuando os cuentan su situación</span><span class="req">Imprescindible</span></label>
+<p class="qh">Con sus palabras, no con las vuestras. Cuantas más, mejor.</p>
+<textarea id="q0904" name="09.04 frases_literales_dicen_interesados_cuando_cuentan" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0905"><span class="qc">09.05</span><span class="qt">¿Qué preguntas hacéis en la videoconferencia para saber si alguien encaja?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0905" name="09.05 preguntas_haceis_videoconferencia_saber_si_alguien" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0906"><span class="qc">09.06</span><span class="qt">¿A quién no debemos ofrecer nunca un programa? ¿Cuándo recomendáis acudir a otro profesional, incluido uno de salud mental?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0906" name="09.06 no_debemos_ofrecer_nunca_programa_cuando" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q0907"><span class="qc">09.07</span><span class="qt">¿Cuánto tarda en decidirse un alumno y quién más interviene en la decisión?</span></label>
+<textarea id="q0907" name="09.07 tarda_decidirse_alumno_mas_interviene_decision" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0908"><span class="qc">09.08</span><span class="qt">¿Cuáles son las 3 a 5 dudas o miedos más frecuentes antes de matricularse?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0908" name="09.08 son_3_5_dudas_miedos_mas" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0909"><span class="qc">09.09</span><span class="qt">¿Por qué no se matricula quien no se matricula?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0909" name="09.09 no_matricula_no_matricula" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q0910"><span class="qc">09.10</span><span class="qt">¿Quiénes son las escuelas que más os comparan y qué os diferencia de ellas?</span><span class="req">Imprescindible</span></label>
+<textarea id="q0910" name="09.10 quienes_son_escuelas_mas_comparan_diferencia" rows="3" required></textarea>
+</div>
+</section>
+<section class="block" id="b10" data-b="10">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">10</span><div class="section-tag" data-n="10">Bloque</div><h2>Empresas y FUNDAE</h2><p class="bintro">Cómo se vende y se cobra la formación y el coaching para organizaciones.</p></div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1001"><span class="qc">10.01</span><span class="qt">¿Cuántas empresas clientes tenéis y cuántas repiten?</span></label>
+<input type="text" id="q1001" name="10.01 empresas_clientes_teneis_repiten">
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1002"><span class="qc">10.02</span><span class="qt">¿Qué sectores y tamaños de empresa os funcionan mejor?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1002" name="10.02 sectores_tamanos_empresa_funcionan_mejor" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1003"><span class="qc">10.03</span><span class="qt">Tamaño medio de un contrato de empresa: participantes e importe</span></label>
+<input type="text" id="q1003" name="10.03 tamano_medio_contrato_empresa_participantes_e">
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1004"><span class="qc">10.04</span><span class="qt">¿Quién decide la compra en la empresa y quién más interviene?</span><span class="req">Imprescindible</span></label>
+<p class="qh">RR. HH., formación, dirección general, gestoría…</p>
+<textarea id="q1004" name="10.04 decide_compra_empresa_mas_interviene" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1005"><span class="qc">10.05</span><span class="qt">¿Gestionáis vosotros la bonificación de FUNDAE? ¿Qué coste final tiene para la empresa y qué no cubre?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1005" name="10.05 gestionais_vosotros_bonificacion_fundae_coste_final" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1006"><span class="qc">10.06</span><span class="qt">¿Usáis FUNDAE también cuando la empresa de un alumno paga su formación (Experto o Certificación)? ¿Con qué frecuencia?</span></label>
+<textarea id="q1006" name="10.06 usais_fundae_tambien_cuando_empresa_alumno" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1007"><span class="qc">10.07</span><span class="qt">Plazos: comunicación del inicio, documentación necesaria, cuándo paga la empresa y cuándo cobra ESEM Training</span><span class="req">Imprescindible</span></label>
+<textarea id="q1007" name="10.07 plazos_comunicacion_inicio_documentacion_necesaria_cuando" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1008"><span class="qc">10.08</span><span class="qt">¿Cómo trabajáis el final de año y el crédito que las empresas aún no han gastado?</span></label>
+<textarea id="q1008" name="10.08 trabajais_final_ano_credito_empresas_aun" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1009"><span class="qc">10.09</span><span class="qt">¿Cómo se plantea y se contrata Executive Thinking? ¿Quién decide en ese caso?</span></label>
+<textarea id="q1009" name="10.09 plantea_contrata_executive_thinking_decide_ese" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1010"><span class="qc">10.10</span><span class="qt">¿Tenéis listados de empresas para prospección? ¿Cuántas, de qué sectores y zonas, y en qué formato?</span></label>
+<textarea id="q1010" name="10.10 teneis_listados_empresas_prospeccion_sectores_zonas" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1011"><span class="qc">10.11</span><span class="qt">¿Qué objeciones ponen las empresas y cómo respondéis?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1011" name="10.11 objeciones_ponen_empresas_respondeis" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1012"><span class="qc">10.12</span><span class="qt">¿Queréis que contactemos en frío a empresas? ¿Sectores prioritarios o excluidos?</span></label>
+<textarea id="q1012" name="10.12 quereis_contactemos_frio_empresas_sectores_prioritarios" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b11" data-b="11">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">11</span><div class="section-tag" data-n="11">Bloque</div><h2>Captación y leads</h2><p class="bintro">De dónde salen los contactos, cómo nos llegarían y con qué permisos.</p></div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q1101"><span class="qc">11.01</span><span class="qt">¿Cuántos leads entran al mes en total y por programa?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q1101" name="11.01 leads_entran_mes_total_programa" required>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1102"><span class="qc">11.02</span><span class="qt">¿Por qué canales llegan y en qué proporción?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Instagram, TikTok, YouTube, Google, la guía gratuita, WhatsApp, Calendly, portales de formación, antiguos alumnos…</p>
+<textarea id="q1102" name="11.02 canales_llegan_proporcion" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1103"><span class="qc">11.03</span><span class="qt">¿A qué página lleva hoy cada canal?</span></label>
+<p class="qh">Por ejemplo, el enlace de la bio de Instagram.</p>
+<textarea id="q1103" name="11.03 pagina_lleva_cada_canal" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1104"><span class="qc">11.04</span><span class="qt">¿Cuántas descargas tiene al mes la guía «Cómo elegir tu formación en coaching» y qué seguimiento se hace?</span></label>
+<input type="text" id="q1104" name="11.04 descargas_tiene_mes_guia_elegir_tu">
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1105"><span class="qc">11.05</span><span class="qt">¿Qué porcentaje de los leads no encaja con ningún programa y por qué?</span></label>
+<input type="text" id="q1105" name="11.05 porcentaje_leads_no_encaja_ningun_programa">
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1106"><span class="qc">11.06</span><span class="qt">Inversión mensual en publicidad y coste aproximado por lead</span></label>
+<input type="text" id="q1106" name="11.06 inversion_mensual_publicidad_coste_aproximado_lead">
+</div>
+<div class="q" data-req="1" data-type="s">
+<label class="ql" for="q1107"><span class="qc">11.07</span><span class="qt">¿El lead da su consentimiento para que le contactemos por teléfono, WhatsApp y email?</span><span class="req">Imprescindible</span></label>
+<select id="q1107" name="11.07 lead_da_consentimiento_le_contactemos_telefono" required><option value="">Elegid una opción</option><option>Sí, por los tres canales</option><option>Solo por teléfono</option><option>Solo por email</option><option>No lo sabemos</option></select>
+</div>
+<div class="q" data-req="1" data-type="r">
+<p class="ql"><span class="qc">11.08</span><span class="qt">Para tratar vuestros contactos cumpliendo el RGPD, firmaríamos un contrato de encargado del tratamiento. ¿Vuestra política de privacidad lo contempla?</span><span class="req">Imprescindible</span></p>
+<div class="opts" role="group">
+<label class="opt"><input type="radio" id="q1108_1" name="11.08 tratar_contactos_cumpliendo_rgpd_firmariamos_contrato" value="Sí, lo contempla"><span>Sí, lo contempla</span></label>
+<label class="opt"><input type="radio" id="q1108_2" name="11.08 tratar_contactos_cumpliendo_rgpd_firmariamos_contrato" value="Habría que adaptarla"><span>Habría que adaptarla</span></label>
+<label class="opt"><input type="radio" id="q1108_3" name="11.08 tratar_contactos_cumpliendo_rgpd_firmariamos_contrato" value="No lo sabemos"><span>No lo sabemos</span></label>
+</div>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1109"><span class="qc">11.09</span><span class="qt">¿Cómo nos pasaríais los leads y cada cuánto?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Acceso al CRM, CSV, notificación automática…</p>
+<textarea id="q1109" name="11.09 pasariais_leads_cada" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q1110"><span class="qc">11.10</span><span class="qt">¿Cuántas personas de los últimos 6 meses pidieron información o hicieron la videoconferencia y no se matricularon?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q1110" name="11.10 personas_ultimos_6_meses_pidieron_informacion" required>
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1111"><span class="qc">11.11</span><span class="qt">¿Cuántos antiguos alumnos tenéis y podemos ofrecerles otros programas o servicios?</span></label>
+<input type="text" id="q1111" name="11.11 antiguos_alumnos_teneis_podemos_ofrecerles_otros">
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1112"><span class="qc">11.12</span><span class="qt">Campañas en marcha y previstas para los próximos 3 meses</span></label>
+<textarea id="q1112" name="11.12 campanas_marcha_previstas_proximos_3_meses" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1113"><span class="qc">11.13</span><span class="qt">¿Hacéis webinars, clases abiertas, jornadas o eventos que generen leads?</span></label>
+<textarea id="q1113" name="11.13 haceis_webinars_clases_abiertas_jornadas_eventos" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1114"><span class="qc">11.14</span><span class="qt">¿En qué días y horarios responde mejor vuestro público?</span></label>
+<textarea id="q1114" name="11.14 dias_horarios_responde_mejor_publico" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b12" data-b="12">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">12</span><div class="section-tag" data-n="12">Bloque</div><h2>Vuestro proceso de venta hoy</h2><p class="bintro">Cómo funciona ahora la admisión, para mejorar sobre lo que ya funciona.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1201"><span class="qc">12.01</span><span class="qt">¿Quién hace hoy las videoconferencias de admisión y cuántas a la semana?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Lo preguntamos para coordinarnos con esas personas, no para sustituirlas.</p>
+<textarea id="q1201" name="12.01 hace_videoconferencias_admision_semana" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="s">
+<label class="ql" for="q1202"><span class="qc">12.02</span><span class="qt">¿Cuánto tardáis de media en responder a un lead nuevo?</span></label>
+<select id="q1202" name="12.02 tardais_media_responder_lead_nuevo"><option value="">Elegid una opción</option><option>Menos de 1 hora</option><option>El mismo día</option><option>1–2 días</option><option>Más de 2 días</option></select>
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q1203"><span class="qc">12.03</span><span class="qt">De cada 10 leads, ¿cuántos reservan videoconferencia, cuántos se presentan y cuántos se matriculan?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q1203" name="12.03 cada_10_leads_reservan_videoconferencia_presentan" required>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1204"><span class="qc">12.04</span><span class="qt">Pasos de vuestro proceso, desde que entra el lead hasta la matrícula</span><span class="req">Imprescindible</span></label>
+<p class="qh">Incluido el envío por escrito de las condiciones.</p>
+<textarea id="q1204" name="12.04 pasos_proceso_desde_entra_lead_hasta" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1205"><span class="qc">12.05</span><span class="qt">¿Qué valoráis en la videoconferencia de admisión y cuántas personas quedan fuera?</span></label>
+<textarea id="q1205" name="12.05 valorais_videoconferencia_admision_personas_quedan_fuera" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="s">
+<label class="ql" for="q1206"><span class="qc">12.06</span><span class="qt">¿Tenéis guion de videoconferencia o mensajes tipo por WhatsApp y email?</span></label>
+<select id="q1206" name="12.06 teneis_guion_videoconferencia_mensajes_tipo_whatsapp"><option value="">Elegid una opción</option><option>Sí, os lo enviamos</option><option>Parcialmente</option><option>No</option></select>
+</div>
+<div class="q" data-req="0" data-type="s">
+<label class="ql" for="q1207"><span class="qc">12.07</span><span class="qt">¿Podéis enviarnos 2 o 3 grabaciones de videoconferencias reales, anonimizadas o con permiso?</span></label>
+<select id="q1207" name="12.07 podeis_enviarnos_2_3_grabaciones_videoconferencias"><option value="">Elegid una opción</option><option>Sí, os las enviamos</option><option>No grabamos, pero podemos hacer una sesión con quien las hace</option><option>No es posible</option></select>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1208"><span class="qc">12.08</span><span class="qt">¿Qué mensajes de seguimiento enviáis a quien no se matricula y en qué días?</span></label>
+<textarea id="q1208" name="12.08 mensajes_seguimiento_enviais_no_matricula_dias" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="t">
+<label class="ql" for="q1209"><span class="qc">12.09</span><span class="qt">¿Qué CRM usáis? ¿Podríamos tener acceso?</span><span class="req">Imprescindible</span></label>
+<input type="text" id="q1209" name="12.09 crm_usais_podriamos_tener_acceso" required>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1210"><span class="qc">12.10</span><span class="qt">¿Qué estados usáis para un lead en vuestro CRM?</span></label>
+<p class="qh">Por ejemplo: nuevo, contactado, videoconferencia, matriculado, descartado…</p>
+<textarea id="q1210" name="12.10 estados_usais_lead_crm" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1211"><span class="qc">12.11</span><span class="qt">¿Quién gestiona el Calendly de la «sesión vocacional estratégica» y qué disponibilidad tiene?</span></label>
+<textarea id="q1211" name="12.11 gestiona_calendly_sesion_vocacional_estrategica_disponibilidad" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1212"><span class="qc">12.12</span><span class="qt">¿Habéis trabajado antes con closers, agencias o comerciales a comisión? ¿Qué funcionó y qué no?</span></label>
+<textarea id="q1212" name="12.12 habeis_trabajado_antes_closers_agencias_comerciales" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1213"><span class="qc">12.13</span><span class="qt">¿Cómo debe presentarse el equipo de cierre? ¿En nombre de ESEM Training, como equipo de admisiones, con email o teléfono corporativo?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1213" name="12.13 debe_presentarse_equipo_cierre_nombre_esem" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1214"><span class="qc">12.14</span><span class="qt">¿En qué casos debe pasar la conversación a Marien o a alguien de dirección?</span></label>
+<p class="qh">Por ejemplo, empresas, dudas académicas o personas que necesitan otro tipo de ayuda.</p>
+<textarea id="q1214" name="12.14 casos_debe_pasar_conversacion_marien_alguien" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b13" data-b="13">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">13</span><div class="section-tag" data-n="13">Bloque</div><h2>Mensaje, objeciones y límites</h2><p class="bintro">Lo que se dice, cómo se responde y lo que no se promete nunca.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1301"><span class="qc">13.01</span><span class="qt">Contadnos la historia de ESEM Training como se la contaríais a un alumno: por qué nació, quién está detrás y qué la hace distinta</span><span class="req">Imprescindible</span></label>
+<textarea id="q1301" name="13.01 contadnos_historia_esem_training_contariais_alumno" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1302"><span class="qc">13.02</span><span class="qt">En una frase: ¿por qué alguien debería formarse en ESEM Training y no en otra escuela?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1302" name="13.02 frase_alguien_deberia_formarse_esem_training" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1303"><span class="qc">13.03</span><span class="qt">Vuestra web dice «sin guion comercial» y «si no encaja, te lo diremos». ¿Cómo queréis que el equipo de cierre mantenga ese mismo criterio en cada conversación?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1303" name="13.03 web_dice_sin_guion_comercial_si" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1304"><span class="qc">13.04</span><span class="qt">¿Qué motivos reales hay para decidir ahora y no dentro de unos meses?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Inicio de edición, plazas limitadas, inscripción anticipada… Solo motivos verdaderos.</p>
+<textarea id="q1304" name="13.04 motivos_reales_hay_decidir_ahora_no" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1305"><span class="qc">13.05</span><span class="qt">Vuestra mejor respuesta, palabra por palabra, cuando os dicen «es caro»</span></label>
+<p class="qh">Aunque sea aproximada.</p>
+<textarea id="q1305" name="13.05 mejor_respuesta_palabra_palabra_cuando_dicen" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1306"><span class="qc">13.06</span><span class="qt">Vuestra mejor respuesta, palabra por palabra, cuando os dicen «no tengo tiempo» (un fin de semana al mes durante siete meses)</span></label>
+<p class="qh">Aunque sea aproximada.</p>
+<textarea id="q1306" name="13.06 mejor_respuesta_palabra_palabra_cuando_dicen" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1307"><span class="qc">13.07</span><span class="qt">Vuestra mejor respuesta, palabra por palabra, cuando os dicen «lo tengo que pensar»</span></label>
+<p class="qh">Aunque sea aproximada.</p>
+<textarea id="q1307" name="13.07 mejor_respuesta_palabra_palabra_cuando_dicen" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1308"><span class="qc">13.08</span><span class="qt">Vuestra mejor respuesta, palabra por palabra, cuando os preguntan «¿podré vivir del coaching?»</span></label>
+<p class="qh">Aunque sea aproximada.</p>
+<textarea id="q1308" name="13.08 mejor_respuesta_palabra_palabra_cuando_preguntan" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1309"><span class="qc">13.09</span><span class="qt">Vuestra mejor respuesta, palabra por palabra, cuando os dicen «lo tengo que consultar»</span></label>
+<p class="qh">Aunque sea aproximada.</p>
+<textarea id="q1309" name="13.09 mejor_respuesta_palabra_palabra_cuando_dicen" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1310"><span class="qc">13.10</span><span class="qt">Otras objeciones habituales y cómo las respondéis</span></label>
+<textarea id="q1310" name="13.10 otras_objeciones_habituales_respondeis" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1311"><span class="qc">13.11</span><span class="qt">Preguntas frecuentes que os hacen antes de matricularse</span></label>
+<textarea id="q1311" name="13.11 preguntas_frecuentes_hacen_antes_matricularse" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1312"><span class="qc">13.12</span><span class="qt">¿Qué no se puede prometer nunca en una conversación?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Ingresos como coach, resultados terapéuticos, titulaciones oficiales…</p>
+<textarea id="q1312" name="13.12 no_puede_prometer_nunca_conversacion" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1313"><span class="qc">13.13</span><span class="qt">¿Hay palabras o expresiones que no queréis que usemos?</span></label>
+<textarea id="q1313" name="13.13 hay_palabras_expresiones_no_quereis_usemos" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1314"><span class="qc">13.14</span><span class="qt">¿Qué afirmaciones de vuestra web podemos usar tal cual?</span></label>
+<textarea id="q1314" name="13.14 afirmaciones_web_podemos_usar_tal" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b14" data-b="14">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">14</span><div class="section-tag" data-n="14">Bloque</div><h2>Matrícula, pagos y cobros</h2><p class="bintro">Cómo paga el alumno y cuándo se da por cerrada una matrícula.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1401"><span class="qc">14.01</span><span class="qt">Financiación con seQura y otras opciones: plazos, requisitos, porcentaje de aprobación y quién asume el impago</span><span class="req">Imprescindible</span></label>
+<textarea id="q1401" name="14.01 financiacion_sequra_otras_opciones_plazos_requisitos" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1402"><span class="qc">14.02</span><span class="qt">Enlaces de pago o pasarela por programa y modalidad</span><span class="req">Imprescindible</span></label>
+<p class="qh">seQura, Stripe, transferencia…</p>
+<textarea id="q1402" name="14.02 enlaces_pago_pasarela_programa_modalidad" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1403"><span class="qc">14.03</span><span class="qt">¿Existe reserva de plaza o señal?</span></label>
+<textarea id="q1403" name="14.03 existe_reserva_plaza_senal" rows="3"></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1404"><span class="qc">14.04</span><span class="qt">¿Quién envía las condiciones por escrito antes de la matrícula y en qué momento?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1404" name="14.04 envia_condiciones_escrito_antes_matricula_momento" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1405"><span class="qc">14.05</span><span class="qt">Pasos desde el pago hasta el primer día del alumno</span><span class="req">Imprescindible</span></label>
+<textarea id="q1405" name="14.05 pasos_desde_pago_hasta_primer_dia" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1406"><span class="qc">14.06</span><span class="qt">¿Quién factura al alumno y qué IVA se aplica?</span><span class="req">Imprescindible</span></label>
+<textarea id="q1406" name="14.06 factura_alumno_iva_aplica" rows="3" required></textarea>
+</div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1407"><span class="qc">14.07</span><span class="qt">¿En qué momento consideráis cerrada una matrícula?</span><span class="req">Imprescindible</span></label>
+<p class="qh">Firma, primer pago, pago completo, aprobación de la financiación, alta en FUNDAE…</p>
+<textarea id="q1407" name="14.07 momento_considerais_cerrada_matricula" rows="3" required></textarea>
+</div>
+</section>
+<section class="block" id="b15" data-b="15">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">15</span><div class="section-tag" data-n="15">Bloque</div><h2>Prueba social y reputación</h2><p class="bintro">Lo que el equipo puede enseñar y citar, y lo que dicen de vosotros.</p></div>
+<div class="q" data-req="1" data-type="a">
+<label class="ql" for="q1501"><span class="qc">15.01</span><span class="qt">Casos y testimonios que podemos citar con nombre: persona, resultado y permiso</span><span class="req">Imprescindible</span></label>
+<p class="qh">En vuestra web aparecen Esther López, Lola Cabrera, Raquel Castillo y Manuel Rojas. ¿Podemos citarlos?</p>
+<textarea id="q1501" name="15.01 casos_testimonios_podemos_citar_nombre_persona" rows="3" required></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1502"><span class="qc">15.02</span><span class="qt">¿Qué vídeos de testimonios tenéis disponibles?</span></label>
+<textarea id="q1502" name="15.02 videos_testimonios_teneis_disponibles" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1503"><span class="qc">15.03</span><span class="qt">¿Qué empresas podemos citar como clientes? ¿Alguna aceptaría hablar con un interesado?</span></label>
+<p class="qh">En la web figuran Naturgy, Avanza, Adecco y Fundación Edelvives.</p>
+<textarea id="q1503" name="15.03 empresas_podemos_citar_clientes_alguna_aceptaria" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1504"><span class="qc">15.04</span><span class="qt">¿Dónde tenéis reseñas públicas?</span></label>
+<p class="qh">Google (4,9 con 83 reseñas), portales de formación…</p>
+<textarea id="q1504" name="15.04 donde_teneis_resenas_publicas" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1505"><span class="qc">15.05</span><span class="qt">Apariciones en prensa, radio o podcasts que podamos citar</span></label>
+<textarea id="q1505" name="15.05 apariciones_prensa_radio_podcasts_podamos_citar" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="s">
+<label class="ql" for="q1506"><span class="qc">15.06</span><span class="qt">¿Podéis darnos un acceso de prueba al campus?</span></label>
+<select id="q1506" name="15.06 podeis_darnos_acceso_prueba_campus"><option value="">Elegid una opción</option><option>Sí</option><option>No</option><option>Solo una demo grabada</option></select>
+</div>
+</section>
+<section class="block" id="b16" data-b="16">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">16</span><div class="section-tag" data-n="16">Bloque</div><h2>Cómo trabajaríamos juntos</h2><p class="bintro">Para encajar el equipo con vuestra forma de trabajar.</p></div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1601"><span class="qc">16.01</span><span class="qt">¿Buscáis exclusividad en algún canal o programa?</span></label>
+<textarea id="q1601" name="16.01 buscais_exclusividad_algun_canal_programa" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1602"><span class="qc">16.02</span><span class="qt">¿Qué informes de seguimiento esperáis y con qué frecuencia?</span></label>
+<textarea id="q1602" name="16.02 informes_seguimiento_esperais_frecuencia" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1603"><span class="qc">16.03</span><span class="qt">Reuniones de seguimiento: frecuencia y quién asistiría por vuestra parte</span></label>
+<textarea id="q1603" name="16.03 reuniones_seguimiento_frecuencia_asistiria_parte" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="t">
+<label class="ql" for="q1604"><span class="qc">16.04</span><span class="qt">¿Cuándo os gustaría empezar?</span></label>
+<input type="text" id="q1604" name="16.04 cuando_gustaria_empezar">
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1605"><span class="qc">16.05</span><span class="qt">Si crecen las matrículas, ¿podéis abrir más grupos o ediciones? ¿Cuántas plazas más?</span></label>
+<textarea id="q1605" name="16.05 si_crecen_matriculas_podeis_abrir_mas" rows="3"></textarea>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1606"><span class="qc">16.06</span><span class="qt">¿Hay algo más que debamos saber?</span></label>
+<textarea id="q1606" name="16.06 hay_algo_mas_debamos_saber" rows="3"></textarea>
+</div>
+</section>
+<section class="block" id="b17" data-b="17">
+<div class="seal-divider" aria-hidden="true"><span class="line"></span><svg viewBox="0 0 100 100" fill="none"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#8E763A" stroke-width="4" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#8E763A" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="line right"></span></div>
+<div class="bhead"><span class="bnum">17</span><div class="section-tag" data-n="17">Bloque</div><h2>Documentos y accesos</h2><p class="bintro">Marcad lo que podéis enviarnos. Con esto preparamos los materiales del equipo.</p></div>
+<div class="q" data-req="0" data-type="c">
+<p class="ql"><span class="qc">17.01</span><span class="qt">Documentos que podéis enviarnos</span></p>
+<div class="opts" role="group">
+<label class="opt"><input type="checkbox" id="q1701_1" name="17.01 documentos_podeis_enviarnos[]" value="Dosier informativo de cada programa"><span>Dosier informativo de cada programa</span></label>
+<label class="opt"><input type="checkbox" id="q1701_2" name="17.01 documentos_podeis_enviarnos[]" value="Guía «Cómo elegir tu formación en coaching»"><span>Guía «Cómo elegir tu formación en coaching»</span></label>
+<label class="opt"><input type="checkbox" id="q1701_3" name="17.01 documentos_podeis_enviarnos[]" value="Temarios actualizados"><span>Temarios actualizados</span></label>
+<label class="opt"><input type="checkbox" id="q1701_4" name="17.01 documentos_podeis_enviarnos[]" value="Calendario de ediciones"><span>Calendario de ediciones</span></label>
+<label class="opt"><input type="checkbox" id="q1701_5" name="17.01 documentos_podeis_enviarnos[]" value="Tarifas, extras y condiciones de descuento"><span>Tarifas, extras y condiciones de descuento</span></label>
+<label class="opt"><input type="checkbox" id="q1701_6" name="17.01 documentos_podeis_enviarnos[]" value="Condiciones de financiación (seQura)"><span>Condiciones de financiación (seQura)</span></label>
+<label class="opt"><input type="checkbox" id="q1701_7" name="17.01 documentos_podeis_enviarnos[]" value="Enlaces de pago"><span>Enlaces de pago</span></label>
+<label class="opt"><input type="checkbox" id="q1701_8" name="17.01 documentos_podeis_enviarnos[]" value="Contrato de matrícula o condiciones generales"><span>Contrato de matrícula o condiciones generales</span></label>
+<label class="opt"><input type="checkbox" id="q1701_9" name="17.01 documentos_podeis_enviarnos[]" value="Documentación de GCF y UDIMA"><span>Documentación de GCF y UDIMA</span></label>
+<label class="opt"><input type="checkbox" id="q1701_10" name="17.01 documentos_podeis_enviarnos[]" value="2 o 3 grabaciones de videoconferencias de admisión"><span>2 o 3 grabaciones de videoconferencias de admisión</span></label>
+<label class="opt"><input type="checkbox" id="q1701_11" name="17.01 documentos_podeis_enviarnos[]" value="Guion de videoconferencia y mensajes tipo"><span>Guion de videoconferencia y mensajes tipo</span></label>
+<label class="opt"><input type="checkbox" id="q1701_12" name="17.01 documentos_podeis_enviarnos[]" value="Objeciones y preguntas frecuentes"><span>Objeciones y preguntas frecuentes</span></label>
+<label class="opt"><input type="checkbox" id="q1701_13" name="17.01 documentos_podeis_enviarnos[]" value="Testimonios autorizados (texto o vídeo)"><span>Testimonios autorizados (texto o vídeo)</span></label>
+<label class="opt"><input type="checkbox" id="q1701_14" name="17.01 documentos_podeis_enviarnos[]" value="Base de leads no matriculados"><span>Base de leads no matriculados</span></label>
+<label class="opt"><input type="checkbox" id="q1701_15" name="17.01 documentos_podeis_enviarnos[]" value="Listado de empresas para prospección"><span>Listado de empresas para prospección</span></label>
+<label class="opt"><input type="checkbox" id="q1701_16" name="17.01 documentos_podeis_enviarnos[]" value="Acceso al CRM"><span>Acceso al CRM</span></label>
+<label class="opt"><input type="checkbox" id="q1701_17" name="17.01 documentos_podeis_enviarnos[]" value="Acceso de prueba al campus"><span>Acceso de prueba al campus</span></label>
+</div>
+</div>
+<div class="q" data-req="0" data-type="a">
+<label class="ql" for="q1702"><span class="qc">17.02</span><span class="qt">¿Cómo y cuándo nos los haréis llegar?</span></label>
+<p class="qh">Carpeta compartida, email…</p>
+<textarea id="q1702" name="17.02 cuando_hareis_llegar" rows="3"></textarea>
+</div>
+</section>
+
+<div class="send" id="send">
+  <div class="section-tag">Último paso</div>
+  <h2>Enviar el cuestionario</h2>
+  <p>Al terminar, generamos un PDF con todas las preguntas y vuestras respuestas para que nos lo enviéis por WhatsApp o por email. Con él preparamos nuestra propuesta de colaboración. Si falta alguna pregunta imprescindible, os lo indicamos aquí abajo.</p>
+  <div class="row"><button type="submit" class="btn" id="go">Terminar y generar el PDF</button></div>
+  <p class="msg" id="msg"></p>
+  <div class="result" id="result" hidden>
+    <p id="rtitle"><strong>Cuestionario completado.</strong> Hemos preparado un PDF con todas las preguntas y vuestras respuestas. Descargadlo y enviádnoslo por WhatsApp o por email.</p>
+    <p class="msg ok" id="netmsg" hidden></p>
+    <div class="row">
+      <button type="button" class="btn" id="pdf">Descargar el PDF</button>
+      <button type="button" class="btn ghost" id="share" hidden>Compartir el PDF</button>
+    </div>
+    <p class="msg" id="pmsg"></p>
+    <div class="dest">
+      <div class="destc">
+        <span class="dl">WhatsApp</span>
+        <span class="dv">+34 663 347 696</span>
+        <a class="btn ghost sm" id="wa" href="https://wa.me/34663347696" target="_blank" rel="noopener">Abrir WhatsApp</a>
+      </div>
+      <div class="destc">
+        <span class="dl">Email</span>
+        <span class="dv">david@closersearch.com</span>
+        <a class="btn ghost sm" id="mail" href="mailto:david@closersearch.com" target="_blank" rel="noopener">Abrir el correo</a>
+      </div>
+    </div>
+    <p class="msg">Al abrir WhatsApp o el correo, adjuntad el PDF que acabáis de descargar. Si los botones no se abren, escribidnos directamente al número o al email de arriba.</p>
+    <details class="txt"><summary>Ver las respuestas en texto</summary>
+      <textarea id="out" readonly aria-label="Respuestas en texto"></textarea>
+      <div class="row"><button type="button" class="btn ghost sm" id="copy">Copiar el texto</button></div>
+      <p class="msg" id="cmsg"></p>
+    </details>
+  </div>
+</div>
+</form>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="ft-grid">
+    <div class="ft-brand"><a class="logo" href="#top"><svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><polygon points="50,4 90,26 90,74 50,96 10,74 10,26" stroke="#C9A84C" stroke-width="3" fill="#060606"/><polygon points="50,16 79,32 79,68 50,84 21,68 21,32" stroke="#8E763A" stroke-width="1.2" fill="none"/><path d="M33 50 L45 62 L69 36" stroke="#C9A84C" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="logo-text"><span class="brand-name">CLOSER<span class="search"> SEARCH</span></span><span class="logo-sub">Selección de talento de cierre</span></span></a><p>Tu departamento comercial, llave en mano. Seleccionamos, formamos y dirigimos equipos de cierre para empresas de formación y productos digitales.</p></div>
+    <div><h5>Contacto</h5><span>david@closersearch.com</span><span>+34 663 347 696</span><a href="https://www.closersearch.com" target="_blank" rel="noopener">www.closersearch.com</a></div>
+    <div><h5>Firma</h5><span class="ft-sign">David Martínez-Bayer</span><span>CEO y Fundador de Closer Search</span></div>
+  </div>
+  <div class="ft-bottom">Closer Search · Documento confidencial. La información que nos facilitéis se usará solo para preparar la colaboración con ESEM Training.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(function(){
+  var KEY='cs-cuest-esem-v1', f=document.getElementById('f');
+  var qs=[].slice.call(document.querySelectorAll('.q'));
+  function store(){try{return window.localStorage}catch(e){return null}}
+  function answered(q){
+    var t=q.dataset.type;
+    if(t==='r'||t==='c') return !!q.querySelector('input:checked');
+    if(t==='f'){
+      var all=[].filter.call(q.querySelectorAll('input,select,textarea'),function(x){return !x.closest('.deep[hidden]')}), k=0;
+      [].forEach.call(all,function(x){if(x.value.trim())k++});
+      var c=q.querySelector('.fc'); c.textContent=k+'/'+all.length; c.classList.toggle('full',k===all.length);
+      return k>=Math.ceil(all.length/2);
+    }
+    var el=q.querySelector('input,textarea,select'); return !!(el&&el.value.trim());
+  }
+  function sync(){
+    var chosen={}; [].forEach.call(document.querySelectorAll('[data-select] input:checked'),function(i){chosen[i.value]=1});
+    [].forEach.call(document.querySelectorAll('details.f'),function(d){
+      var on=!!chosen[d.dataset.item]; d.querySelector('.deep').hidden=!on; d.classList.toggle('full-f',on);
+    });
+  }
+  function progress(){
+    sync();
+    var n=0; qs.forEach(function(q){ if(answered(q)){n++; q.classList.remove('missing');} });
+    var p=Math.round(n/qs.length*100);
+    document.getElementById('fill').style.width=p+'%';
+    document.getElementById('pct').textContent=p+' %';
+    [].slice.call(document.querySelectorAll('.block')).forEach(function(b){
+      var bq=b.querySelectorAll('.q'), k=0; [].forEach.call(bq,function(q){if(answered(q))k++});
+      var nb=document.querySelector('.navb[data-b="'+b.dataset.b+'"]');
+      document.getElementById('np'+b.dataset.b).textContent=k+'/'+bq.length;
+      nb.classList.toggle('done',k===bq.length);
+    });
+  }
+  function collect(){
+    var d={}; [].forEach.call(f.elements,function(el){
+      if(!el.name||el.name==='form-name'||el.name==='bot-field') return;
+      if(el.type==='radio'||el.type==='checkbox'){ if(!el.checked) return; (d[el.name]=d[el.name]||[]).push(el.value); }
+      else d[el.name]=el.value;
+    }); return d;
+  }
+  function save(){
+    var s=store(); if(!s) return;
+    try{ s.setItem(KEY,JSON.stringify(collect()));
+      document.getElementById('saved').textContent='Guardado '+new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){}
+  }
+  function load(){
+    var s=store(); if(!s) return; var d;
+    try{ d=JSON.parse(s.getItem(KEY)||'null'); }catch(e){ d=null; }
+    if(!d) return;
+    [].forEach.call(f.elements,function(el){
+      if(!(el.name in d)) return; var v=d[el.name];
+      if(el.type==='radio'||el.type==='checkbox') el.checked=Array.isArray(v)&&v.indexOf(el.value)>-1;
+      else el.value=v;
+    });
+    document.getElementById('saved').textContent='Respuestas recuperadas';
+  }
+  var t; f.addEventListener('input',function(){ progress(); clearTimeout(t); t=setTimeout(save,400); });
+  f.addEventListener('change',function(){ progress(); save(); });
+
+  function model(){
+    var blocks=[];
+    [].slice.call(document.querySelectorAll('.block')).forEach(function(b){
+      var items=[];
+      [].forEach.call(b.querySelectorAll('.q'),function(q){
+        var t=q.dataset.type, it={code:q.querySelector('.qc').textContent, label:q.querySelector('.qt').textContent, req:q.dataset.req==='1'};
+        if(t==='f'){
+          it.ficha=true; it.full=q.classList.contains('full-f');
+          it.fields=[].filter.call(q.querySelectorAll('.gfi'),function(l){return !l.closest('.deep[hidden]')}).map(function(l){
+            var x=l.querySelector('input,select,textarea'); return {label:l.firstChild.textContent.trim(), value:x.value.trim()};
+          });
+        } else if(t==='r'||t==='c'){
+          it.value=[].map.call(q.querySelectorAll('input:checked'),function(i){return i.value}).join(t==='c'?'\n':', ');
+        } else it.value=q.querySelector('input,textarea,select').value.trim();
+        items.push(it);
+      });
+      blocks.push({num:b.querySelector('.bnum').textContent, title:b.querySelector('h2').textContent, items:items});
+    });
+    return blocks;
+  }
+  function val(id){var el=document.getElementById(id);return el?el.value.trim():''}
+  function text(){
+    var lines=['CUESTIONARIO DE COLABORACIÓN · ESEM Training',''];
+    model().forEach(function(b){
+      lines.push('== '+b.num+' · '+b.title+' ==');
+      b.items.forEach(function(it){
+        lines.push(it.code+' '+it.label);
+        if(it.ficha) it.fields.forEach(function(fd){lines.push('   - '+fd.label+': '+(fd.value||'—'))});
+        else lines.push('→ '+(it.value?it.value.replace(/\n/g,', '):'(sin respuesta)'));
+        lines.push('');
+      });
+    });
+    return lines.join('\n');
+  }
+  function today(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+  var FILENAME='ESEM-Training-cuestionario-colaboracion-'+today()+'.pdf';
+
+  function buildPDF(){
+    var J=window.jspdf&&window.jspdf.jsPDF; if(!J) return null;
+    var doc=new J({unit:'mm',format:'a4'}), W=210, H=297, M=18, CW=W-2*M, y=0;
+    var GOLD=[160,128,52], INK=[25,23,20], MUTED=[110,104,92], LINE=[220,212,195];
+    function clean(t){return String(t).replace(/[→]/g,'->').replace(/[≤]/g,'<=').replace(/[≥]/g,'>=').replace(/[‘’]/g,"'").replace(/[“”]/g,'"')}
+    function need(h){ if(y+h>H-18){ doc.addPage(); y=20; } }
+    function para(t,size,style,color,indent,gap){
+      indent=indent||0; doc.setFont('helvetica',style||'normal'); doc.setFontSize(size); doc.setTextColor.apply(doc,color||INK);
+      var lh=size*0.42, lines=doc.splitTextToSize(clean(t),CW-indent);
+      lines.forEach(function(l){ need(lh); doc.text(l,M+indent,y+lh*0.8); y+=lh; });
+      y+=(gap==null?1.5:gap);
+    }
+    // portada / cabecera
+    doc.setFillColor(7,7,7); doc.rect(0,0,W,46,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(239,233,220); doc.text('CLOSER',M,16);
+    doc.setTextColor(201,168,76); doc.text('SEARCH',M+17.5,16);
+    doc.setFontSize(20); doc.setTextColor(239,233,220); doc.text('Cuestionario de colaboración',M,30);
+    doc.setFontSize(13); doc.setTextColor(201,168,76); doc.text('ESEM Training · Escuela de Emociones',M,38);
+    y=56;
+    var all=qs.filter(function(q){return q.dataset.type!=='f'}), done=all.filter(answered).length;
+    var req=qs.filter(function(q){return q.dataset.req==='1'}), reqd=req.filter(answered).length;
+    var sel=[].map.call(document.querySelectorAll('[data-select] input:checked'),function(i){return i.value});
+    para('Fecha: '+new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'}),10,'normal',MUTED,0,0.5);
+    if(val('q0101')) para('Rellenado por: '+val('q0101'),10,'normal',MUTED,0,0.5);
+    if(val('q0102')) para('Contacto: '+val('q0102'),10,'normal',MUTED,0,0.5);
+    para('Preguntas respondidas: '+done+' de '+all.length+' · Imprescindibles: '+reqd+' de '+req.length,10,'normal',MUTED,0,4);
+    if(sel.length){ para('Programas y líneas elegidos para la colaboración',11,'bold',GOLD,0,1); sel.forEach(function(x){para('·  '+x,10,'normal',INK,3,0.3)}); y+=4; }
+    model().forEach(function(b){
+      need(18); y+=3;
+      doc.setDrawColor.apply(doc,GOLD); doc.setLineWidth(0.6); doc.line(M,y,M+CW,y); y+=6;
+      para(b.num+'  ·  '+b.title,13,'bold',INK,0,3);
+      b.items.forEach(function(it){
+        need(12);
+        if(it.ficha){
+          para(it.code+'  '+it.label+(it.full?'   [Ficha completa]':''),10.5,'bold',it.full?GOLD:INK,0,1);
+          it.fields.forEach(function(fd){
+            para(fd.label+': '+(fd.value||'—'),9.3,'normal',fd.value?INK:MUTED,4,0.6);
+          });
+          y+=2.5;
+        } else {
+          para(it.code+'  '+it.label+(it.req?'  *':''),10.5,'bold',INK,0,1);
+          if(it.value) it.value.split('\n').forEach(function(p){ para(p,10,'normal',INK,4,0.4); });
+          else para('Sin respuesta',10,'italic',MUTED,4,0.4);
+          y+=2.5;
+        }
+      });
+    });
+    var n=doc.getNumberOfPages();
+    for(var i=1;i<=n;i++){ doc.setPage(i); doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(doc,MUTED);
+      doc.text('Closer Search · Documento confidencial · www.closersearch.com',M,H-9);
+      doc.text('Página '+i+' de '+n,W-M,H-9,{align:'right'});
+      if(i===1){ doc.text('* Pregunta imprescindible',W-M,52,{align:'right'}); } }
+    return doc.output('blob');
+  }
+
+  var pdfBlob=null;
+  function getPDF(){ if(!pdfBlob) pdfBlob=buildPDF(); return pdfBlob; }
+  var pmsg=document.getElementById('pmsg');
+  document.getElementById('pdf').addEventListener('click',function(){
+    var blob=getPDF();
+    if(!blob){ pmsg.className='msg err'; pmsg.textContent='No se ha podido generar el PDF. Recargad la página e intentadlo de nuevo; vuestras respuestas siguen guardadas.'; return; }
+    pmsg.className='msg'; pmsg.textContent='';
+    var api=window.claude&&window.claude.use;
+    if(api){
+      window.claude.use('downloads').then(function(dl){
+        if(!dl) throw {code:'unavailable'};
+        return dl.save({filename:FILENAME,data:blob});
+      }).then(function(){ pmsg.className='msg ok'; pmsg.textContent='PDF descargado. Ahora adjuntadlo en WhatsApp o en el correo.'; })
+      .catch(function(e){ pmsg.className='msg err'; pmsg.textContent=(e&&e.code==='declined')?'Descarga cancelada. Podéis volver a pulsar el botón cuando queráis.':'Desde esta vista no se puede descargar el archivo. Usad «Ver las respuestas en texto» y enviadnos el texto.'; });
+    } else {
+      var a=document.createElement('a'), u=URL.createObjectURL(blob);
+      a.href=u; a.download=FILENAME; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function(){URL.revokeObjectURL(u)},4000);
+      pmsg.className='msg ok'; pmsg.textContent='PDF descargado. Ahora adjuntadlo en WhatsApp o en el correo.';
+    }
+  });
+  var shareBtn=document.getElementById('share');
+  shareBtn.addEventListener('click',function(){
+    var blob=getPDF(); if(!blob) return;
+    var file=new File([blob],FILENAME,{type:'application/pdf'});
+    navigator.share({files:[file],title:'Cuestionario de colaboración ESEM Training',text:'Respuestas de ESEM Training al cuestionario de colaboración de Closer Search.'})
+      .then(function(){ pmsg.className='msg ok'; pmsg.textContent='PDF compartido.'; })
+      .catch(function(e){ if(e&&e.name==='AbortError') return; shareBtn.hidden=true; pmsg.className='msg'; pmsg.textContent='Este dispositivo no permite compartir el archivo directamente. Descargadlo y adjuntadlo.'; });
+  });
+
+  var hosted=/closersearch\.com$|netlify\.app$/.test(location.hostname);
+  function sendNetlify(){
+    var blob=getPDF(), fd=new FormData(f);
+    if(blob) fd.set('pdf-respuestas', new File([blob],FILENAME,{type:'application/pdf'}));
+    return fetch('/',{method:'POST',body:fd});
+  }
+  f.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var miss=qs.filter(function(q){return q.dataset.req==='1'&&!answered(q)});
+    var msg=document.getElementById('msg');
+    qs.forEach(function(q){q.classList.remove('missing')});
+    if(miss.length){
+      miss.forEach(function(q){q.classList.add('missing')});
+      msg.className='msg err';
+      msg.textContent='Faltan '+miss.length+' preguntas imprescindibles, marcadas en rojo. La primera es la '+miss[0].querySelector('.qc').textContent+'.';
+      miss[0].scrollIntoView({behavior:'smooth',block:'center'});
+      var el=miss[0].querySelector('input,textarea,select'); if(el) setTimeout(function(){el.focus({preventScroll:true})},400);
+      return;
+    }
+    save(); msg.className='msg'; msg.textContent='';
+    pdfBlob=null;
+    document.getElementById('out').value=text();
+    var who=val('q0101');
+    document.getElementById('wa').href='https://wa.me/34663347696?text='+encodeURIComponent('Hola David, soy '+(who||'[nombre]')+', de ESEM Training. Te envío el PDF con nuestras respuestas al cuestionario de colaboración.');
+    document.getElementById('mail').href='mailto:david@closersearch.com?subject='+encodeURIComponent('ESEM Training · Respuestas al cuestionario de colaboración')+'&body='+encodeURIComponent('Hola David,\n\nTe adjunto el PDF con las respuestas de ESEM Training al cuestionario de colaboración.\n\nUn saludo,\n'+(who||''));
+    try{ var probe=new File([new Blob(['x'])],'a.pdf',{type:'application/pdf'}); shareBtn.hidden=!(navigator.canShare&&navigator.canShare({files:[probe]})&&!window.claude); }catch(e){ shareBtn.hidden=true; }
+    var r=document.getElementById('result'); r.hidden=false;
+    r.scrollIntoView({behavior:'smooth',block:'start'});
+    if(hosted){
+      var nm=document.getElementById('netmsg');
+      sendNetlify().then(function(res){ if(!res.ok) throw 0; nm.hidden=false; nm.textContent='Hemos recibido vuestras respuestas y el PDF. Si queréis, enviádnoslo también por WhatsApp o email.'; })
+        .catch(function(){ nm.hidden=false; nm.className='msg err'; nm.textContent='No hemos podido recibir el envío automático. Descargad el PDF y enviádnoslo por WhatsApp o email.'; });
+    }
+  });
+  document.getElementById('copy').addEventListener('click',function(){
+    var out=document.getElementById('out'), c=document.getElementById('cmsg');
+    function sel(){ out.focus(); out.select(); c.textContent='Texto seleccionado: copiadlo con Ctrl+C o manteniendo pulsado en el móvil.'; }
+    try{ navigator.clipboard.writeText(out.value).then(function(){ c.textContent='Texto copiado.'; },sel); }catch(e){ sel(); }
+  });
+  load(); progress();
+})();
+</script>
+<script>
+document.getElementById('mt').addEventListener('click',function(){document.body.classList.toggle('menu-open')});
+document.getElementById('sn').addEventListener('click',function(e){if(e.target.closest('a'))document.body.classList.remove('menu-open')});
+</script>
+</body>
+</html>
